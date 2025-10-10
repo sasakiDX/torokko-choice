@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TrolleyChoice : MonoBehaviour
 {
@@ -8,9 +9,12 @@ public class TrolleyChoice : MonoBehaviour
 
     private Vector2 startPos;       // 初期位置
     private int direction = 1;      // 進む方向（右:1, 左:-1）
-    private bool isHitBox = false;  // 当たり中かどうかを記録
+    private bool isHitBox = false;  // 当たり判定があるなら発動
+    private bool isChange = false;  // 分岐に入ったときに発動
 
     private BoxCollider2D HitBox;   //当たり判定
+
+
 
     void Start()
     {
@@ -26,6 +30,16 @@ public class TrolleyChoice : MonoBehaviour
         {
             transform.Translate(Vector2.right * direction * RidSpeed * Time.deltaTime);// 右方向に移動
         }
+        if (isChange)
+        {
+            //問題をだす
+            //ステータスの変更
+            //問題に回答したら対応するコードを発動する
+
+
+            // 一度処理したらフラグを戻す
+            isChange = false;
+        }
     }
 
  
@@ -34,6 +48,10 @@ public class TrolleyChoice : MonoBehaviour
         if (other.CompareTag("Rail")) //レールに触れているとき実行
         {
             isHitBox = true;//触れている
+        }
+        else if (other.CompareTag("Branch"))
+        {
+            isChange = true;
         }
     }
 
