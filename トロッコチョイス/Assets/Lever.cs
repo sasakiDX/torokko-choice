@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//レール切り替え
+
 namespace Assets
 {
     internal class Lever
     {
+
     }
 }
