@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 //レール切り替え
-
+//レバーがfalseかtrueかで
 namespace Assets
 {
     internal class Lever

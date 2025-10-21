@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class TrolleyChoice : MonoBehaviour
 {
+
+
     [Header("移動設定")]
     // public float moveDistance = 3f; // 上下の移動幅（1回の往復距離）
     public float RidSpeed = 5f;     // 移動速度(たまに反映されないため要確認)
@@ -39,29 +41,37 @@ public class TrolleyChoice : MonoBehaviour
     void Update()
     {
 
-        //考えただけ
+        //トロッコの状態のみ
         switch (state)
         {
             case Scene.Look:
-                //if()//特定の動作をしたら移動が開始する
-                state = Scene.Move;
+                
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    state = Scene.Move;
+                }
                 break;
 
             case Scene.Move:
                 transform.Translate(Vector2.right * RidSpeed * Time.deltaTime);//移動中
-                if (isChange > 0)
+                if (isHitBox > 0)
                 {
-                    state = Scene.Question;
+                    state = Scene.Look; // レールから離れたので停止状態へ
                 }
+                
                 break;
 
             case Scene.Question:
-                SceneManager.LoadScene("Question");//                   
-                state = Scene.Move;
+
+                SceneManager.LoadScene("Question");//別クラスのイベントシーンへ移行 
+
+                //問題クラスから帰ってきて動作するため問題クラス側に追加する
                 //GameManager.Instance.state = GameState.Move; // 状態をMoveにセット（通知）
-                //SceneManager.LoadScene("MainScene");         // 実際にMainSceneに切り替える
+                //SceneManager.LoadScene("Trolley");// 切り替える
+                //isChange--;
 
                 break;
+              
 
 
         }
@@ -81,33 +91,28 @@ public class TrolleyChoice : MonoBehaviour
     }
 
 
-    //private void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    if (other.CompareTag("Rail")) // レールに触れているとき
-    //    {
-    //        isHitBox++; // 複数接触に対応
-    //        Debug.Log("レールに接触");
-    //    }
-    //    else if (other.CompareTag("Change")) // Change に触れたとき
-    //    {
-    //        isChange++;
-    //        Debug.Log("Change に接触");
-    //        //ここで問題を出す
-    //    }
-    //}
+    private void OnTriggerEnter2D(Collider2D other)//タグに触れたとき
+    { 
+        // Scene が MOVE のときだけ処理を行う
+        if (state != Scene.Move)
+            return; // MOVE じゃなければ何もしない
 
-    //private void OnTriggerExit2D(Collider2D other)
-    //{
-    //    if (other.CompareTag("Rail")) // レールから離れたとき
-    //    {
-    //        isHitBox--; // 複数接触に対応
-    //        Debug.Log("レールから離脱");
-    //    }
-    //    else if (other.CompareTag("Change")) // Change から離れたとき
-    //    {
-    //        isChange--;
-    //        Debug.Log("Change から離脱");
-    //        //再び移動を始める
-    //    }
-    //}
+        // MOVE 状態のときのみ switch 文を実行
+        switch (other.tag)
+        {
+            case "Rail":
+                Debug.Log("レールに接触");
+                isHitBox++; // 複数接触に対応
+                            //state = Scene.Move; // すでに MOVE なので不要
+                break;
+
+            case "Change":
+                Debug.Log("Change に接触");
+                isChange++;
+               // state = Scene.Question; // イベントへ移行
+                break;
+        }
+    }
+
+  
 }
