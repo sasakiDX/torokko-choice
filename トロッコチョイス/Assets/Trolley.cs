@@ -54,7 +54,7 @@ public class TrolleyChoice : MonoBehaviour
 
             case Scene.Move:
                 transform.Translate(Vector2.right * RidSpeed * Time.deltaTime);//移動中
-                if (isHitBox > 0)
+                if (isChange > 0)
                 {
                     state = Scene.Look; // レールから離れたので停止状態へ
                 }
@@ -103,6 +103,7 @@ public class TrolleyChoice : MonoBehaviour
             case "Rail":
                 Debug.Log("レールに接触");
                 isHitBox++; // 複数接触に対応
+
                             //state = Scene.Move; // すでに MOVE なので不要
                 break;
 
