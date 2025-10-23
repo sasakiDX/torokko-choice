@@ -101,16 +101,18 @@ public class TrolleyChoice : MonoBehaviour
         switch (other.tag)
         {
             case "Rail":
-                Debug.Log("レールに接触");
                 isHitBox++; // 複数接触に対応
-
-                            //state = Scene.Move; // すでに MOVE なので不要
+                //state = Scene.Move; // すでに MOVE なので不要
                 break;
 
             case "Change":
-                Debug.Log("Change に接触");
                 isChange++;
-               // state = Scene.Question; // イベントへ移行
+                if (isChange > 0)//レールの真ん中まで移動する
+                {
+                
+                }
+                    state = Scene.Question; // イベントへ移行
+                //isChange--;//Question側に処理を追加する
                 break;
         }
     }
