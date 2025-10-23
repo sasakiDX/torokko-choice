@@ -1,27 +1,21 @@
-﻿//using UnityEngine;
+﻿using UnityEngine;
 
-//public enum GameState
-//{
-//    Look,
-//    Move,
-//    Question
-//}
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance;
 
-//public class GameManager : MonoBehaviour
-//{
-//    public static GameManager Instance;
-//    public GameState state = GameState.Look; // 初期状態
+    public GameObject ChangePoint; // 直前のChangeを保存するための変数
 
-//    private void Awake()
-//    {
-//        if (Instance == null)
-//        {
-//            Instance = this;
-//            DontDestroyOnLoad(gameObject); // シーンをまたいでも破棄されない
-//        }
-//        else
-//        {
-//            Destroy(gameObject);
-//        }
-//    }
-//}
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // シーンをまたいでも保持
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+}
