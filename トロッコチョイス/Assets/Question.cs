@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Question : MonoBehaviour
 {
@@ -25,9 +26,10 @@ public class Question : MonoBehaviour
         onFinished = finishedCallback;
 
         Debug.Log($"Question 実行中: {data.questionText}");
+        Debug.Log("プレイヤーに問題を表示中... (スペースキーで回答)");
 
-        // UI表示
-        questionText.text = data.questionText;
+        //UI表示
+        //questionText.text = data.questionText;
 
         for (int i = 0; i < choiceButtons.Length; i++)
         {
@@ -70,11 +72,20 @@ public class Question : MonoBehaviour
             changeObj.tag = "Rail";
             Debug.Log($"{changeObj.name} のタグを Rail に変更しました。");
         }
-
+        SceneManager.LoadScene("Trolley");
         // UIを非表示にして終了通知
         gameObject.SetActive(false);
         onFinished?.Invoke();
     }
 
-
+    private void Update()
+    {
+        // 仮想回答処理：スペースキーで回答完了
+        if (onFinished != null && Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("プレイヤーが回答しました！");
+            onFinished.Invoke();  // TrolleyChoiceへ戻る
+            onFinished = null;    // コールバックをリセット
+        }
+    }
 }
