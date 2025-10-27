@@ -64,9 +64,11 @@ public class TrolleyChoice : MonoBehaviour
             case Scene.Move:
                 transform.Translate(Vector2.right * RidSpeed * Time.deltaTime);//移動中
 
+               
                 if (isChange > 0)
                 {
-                  RidSpeed = 0;
+                    RidSpeed = 0;
+                    state = Scene.Look; // 一時停止状態へ
                 }
 
                 if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -123,7 +125,7 @@ public class TrolleyChoice : MonoBehaviour
                 isChange++;
 
                 GameManager.Instance.ChangePoint = other.gameObject; // 直前のChangeを記録
-
+               
                 if (questionController != null && currentQuestion != null)
                 {
                     // Questionを開始
@@ -131,11 +133,15 @@ public class TrolleyChoice : MonoBehaviour
                     {
                         Debug.Log("Question終了後、Moveに戻る");
                         isChange--;
+
+                        RidSpeed = 5f;
+
                         state = Scene.Move;
+
                     });
 
                     
-                   
+
                 }
                 else
                 {

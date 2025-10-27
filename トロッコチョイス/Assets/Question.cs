@@ -11,6 +11,20 @@ public class Question : MonoBehaviour
     private Action onFinished;
     private QuestionData currentData;
 
+
+    private void Update()
+    {
+        // 仮想回答処理：スペースキーで回答完了
+        if (onFinished != null && Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("プレイヤーが回答しました！");
+           EndQuestion(currentData.correctIndex);
+        }
+    }
+
+
+
+
     // CSVで読み込んだ問題を外部から渡して使う
     public void StartQuestion(QuestionData data, Action finishedCallback)
     {
@@ -48,14 +62,16 @@ public class Question : MonoBehaviour
 
             int index = i;
             button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => OnChoiceSelected(index));
+            button.onClick.AddListener(() => EndQuestion(index));
         }
 
         gameObject.SetActive(true);
     }
 
-    private void OnChoiceSelected(int selected)
+    private void EndQuestion(int selected)
     {
+
+        Debug.Log($"EndQuestion() 呼び出し開始。選択肢番号: {selected}");
         if (currentData == null)
         {
             Debug.LogError("currentData が設定されていません。");
@@ -72,20 +88,18 @@ public class Question : MonoBehaviour
             changeObj.tag = "Rail";
             Debug.Log($"{changeObj.name} のタグを Rail に変更しました。");
         }
-        SceneManager.LoadScene("Trolley");
-        // UIを非表示にして終了通知
+        else
+        {
+            Debug.LogWarning("GameManager.Instance.ChangePoint が設定されていません。");
+        }
+
+
         gameObject.SetActive(false);
-        onFinished?.Invoke();
+        Debug.Log("【Question】コールバックを実行します（TrolleyChoiceへ）");
+        onFinished?.Invoke(); // ←ここで「Question終了後、Moveに戻る」が出力される
+        Debug.Log("【Question】onFinished.Invoke() 完了"); // 呼び出し完了後に追加
+
     }
 
-    private void Update()
-    {
-        // 仮想回答処理：スペースキーで回答完了
-        if (onFinished != null && Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("プレイヤーが回答しました！");
-            onFinished.Invoke();  // TrolleyChoiceへ戻る
-            onFinished = null;    // コールバックをリセット
-        }
-    }
+  
 }
