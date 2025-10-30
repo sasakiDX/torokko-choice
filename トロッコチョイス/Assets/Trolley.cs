@@ -21,7 +21,8 @@ public class TrolleyChoice : MonoBehaviour
     {     
         Look,// 停止中
         Move,     // レール上で移動中
-        Question    // 分岐に入った（イベント発生）
+        UPRail
+        //Question    // 分岐に入った（イベント発生）
 
     }
 
@@ -39,12 +40,29 @@ public class TrolleyChoice : MonoBehaviour
 
     private BoxCollider2D HitBox;   // 当たり判定
     [SerializeField] private Question questionRef;// Question参照
+    public GameObject ChoicePointObject;  // Lever がアタッチされたオブジェクト
+    private Lever lever;                  // Lever コンポーネント
+
+    public int  isChoice; //レバーの選択肢によって変わるフラグ
 
     void Start()
     {
         startPos = transform.position;          // 初期位置の保存
         HitBox = GetComponent<BoxCollider2D>(); // 当たり判定の取得
-       
+                                                // ChoicePointObject から Lever コンポーネントを取得
+        lever = ChoicePointObject.GetComponent<Lever>();
+
+
+        if (lever != null)
+        {
+            // Lever のイベントに登録
+            lever.ChoicePoint += ChoicePoint;  // ← イベント名を変更に合わせる
+        }
+        else
+        {
+            Debug.LogError("ChoicePointObject に Lever コンポーネントが見つかりません！");
+        }
+
     }
 
     void Update()
@@ -77,15 +95,29 @@ public class TrolleyChoice : MonoBehaviour
                 }
                 break;
 
-            //case Scene.Question:
-            //    questionController.StartQuestion
-            //        (currentQuestion, () =>
-            //    {
-            //        Debug.Log("Question終了後、Moveに戻る");
-            //        isChange--;
-            //        state = Scene.Move;
-            //    });
-            //    break;
+            case Scene.UPRail:
+
+
+                //上のレールに移動するコードをここに書く
+                break;
+
+
+
+
+
+
+
+
+
+                //case Scene.Question:
+                //    questionController.StartQuestion
+                //        (currentQuestion, () =>
+                //    {
+                //        Debug.Log("Question終了後、Moveに戻る");
+                //        isChange--;
+                //        state = Scene.Move;
+                //    });
+                //    break;
 
         }
 
@@ -94,15 +126,17 @@ public class TrolleyChoice : MonoBehaviour
     }
 
 
+    
+
+
         //transform.Translate(Vector2.right * RidSpeed * Time.deltaTime);
         //レールに触れている間だけ動作
-        
-        ///*
+        //
         //if (isChange > 0)
         //{
         //    Scene.Question();//イベントシーンへ移行
         //}
-        //*/
+        //
 
 
 
@@ -129,14 +163,27 @@ public class TrolleyChoice : MonoBehaviour
                 if (questionController != null && currentQuestion != null)
                 {
                     // Questionを開始
-                    questionController.StartQuestion(currentQuestion, () =>
+                    questionController.StartQuestion(currentQuestion, (choiceResult) =>
                     {
                         Debug.Log("Question終了後、Moveに戻る");
                         isChange--;
 
                         RidSpeed = 5f;
 
-                        state = Scene.Move;
+                        isChoice = choiceResult; // 結果を保持
+
+                        if (isChoice > 0) //ここで回答したときのレバーのPointによってSceneを変える
+                        //1ならそのままMove
+                        {
+                            state = Scene.Move;
+                        }
+
+                        else if(isChoice > 1)
+                        {
+                            state = Scene.UPRail;
+                        }
+                        //2なら上に移動する別のコードを挟んだ後にMove
+
 
                     });
 
@@ -149,7 +196,7 @@ public class TrolleyChoice : MonoBehaviour
                 }
                 break;
 
-
+                /*
                 //case "Change":
                 //    isChange++;
 
@@ -181,7 +228,7 @@ public class TrolleyChoice : MonoBehaviour
 
 
 
-                /*
+                
                 if (changeComp != null && QuestionCSVLoader.Questions.Count > 0)
                 {
                     int id = changeComp.questionID - 1;
@@ -196,5 +243,22 @@ public class TrolleyChoice : MonoBehaviour
         }
     }
 
-  
+    void ChoicePoint(int choice)
+    {
+        switch (choice)
+        {
+            case 1:
+                Debug.Log("分岐1の処理");
+                //そのままMoveに切り替える
+                state = Scene.Move;
+
+                break;
+            case 2:
+                Debug.Log("分岐2の処理");
+                //上に移動してMoveに切り替える
+                break;
+
+        }
+    }
+
 }

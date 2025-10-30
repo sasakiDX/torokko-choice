@@ -3,30 +3,47 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
 public class Question : MonoBehaviour
 {
     public Text questionText;
     public Button[] choiceButtons;
 
-    private Action onFinished;
+    private Action<int> onFinished;
     private QuestionData currentData;
 
+   public int Choice = 0;//仮の選択肢変数
 
     private void Update()
     {
         // 仮想回答処理：スペースキーで回答完了
-        if (onFinished != null && Input.GetKeyDown(KeyCode.Space))
+        //Leverの操作による回答
+
+
+        if (onFinished != null && Input.GetKeyDown(KeyCode.Space))//青(そのまま)
         {
-            Debug.Log("プレイヤーが回答しました！");
-           EndQuestion(currentData.correctIndex);
+            Debug.Log("プレイヤーがAを回答しました！");
+            EndQuestion(currentData.correctIndex);
         }
+
+        if (onFinished != null && Input.GetKeyDown(KeyCode.Space))//赤(レール変更)
+        {
+            Choice = 1;
+            Debug.Log("プレイヤーがBを回答しました！");
+            EndQuestion(currentData.correctIndex);
+
+        }
+
+       
+       
+
     }
 
 
 
 
     // CSVで読み込んだ問題を外部から渡して使う
-    public void StartQuestion(QuestionData data, Action finishedCallback)
+    public void StartQuestion(QuestionData data, Action<int> finishedCallback)
     {
         //if (data == null)
         //{
@@ -37,7 +54,7 @@ public class Question : MonoBehaviour
 
 
         currentData = data;
-        onFinished = finishedCallback;
+        onFinished = finishedCallback; // ★Action<int> を受け取る
 
         Debug.Log($"Question 実行中: {data.questionText}");
         Debug.Log("プレイヤーに問題を表示中... (スペースキーで回答)");
@@ -45,7 +62,7 @@ public class Question : MonoBehaviour
         //UI表示
         //questionText.text = data.questionText;
 
-        for (int i = 0; i < choiceButtons.Length; i++)
+        for (int i = 0; i < choiceButtons.Length; i++)// 選択肢の設定
         {
             var button = choiceButtons[i];
             var text = button.GetComponentInChildren<Text>();
@@ -61,8 +78,8 @@ public class Question : MonoBehaviour
             }
 
             int index = i;
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => EndQuestion(index));
+            button.onClick.RemoveAllListeners();//
+            button.onClick.AddListener(() => EndQuestion(index));// 選択肢がクリックされたときに EndQuestion を呼び出す
         }
 
         gameObject.SetActive(true);
@@ -96,7 +113,7 @@ public class Question : MonoBehaviour
 
         gameObject.SetActive(false);
         Debug.Log("【Question】コールバックを実行します（TrolleyChoiceへ）");
-        onFinished?.Invoke(); // ←ここで「Question終了後、Moveに戻る」が出力される
+        onFinished?.Invoke(Choice);// ←ここで「Question終了後、Moveに戻る」が出力される
         Debug.Log("【Question】onFinished.Invoke() 完了"); // 呼び出し完了後に追加
 
     }

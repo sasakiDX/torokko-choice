@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questionText: aaaaaaaa
   choices: []
-  correctIndex: 0
+  correctIndex: 1

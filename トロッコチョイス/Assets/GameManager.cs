@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject ChangePoint; // 直前のChangeを保存するための変数
+    private Lever lever;            // Leverコンポーネント
 
     void Awake()
     {
