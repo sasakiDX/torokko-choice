@@ -29,9 +29,11 @@ public class TrolleyChoice : MonoBehaviour
     private Scene state = Scene.Look; // 現在の状態
 
     [SerializeField] private Question questionController; // Question UI制御
-    [SerializeField] public QuestionData currentQuestion;           // 問題データ
+    [SerializeField] public QuestionData currentQuestion; // 問題データ
     [SerializeField] private Lever leverController;       // Lever 制御
-    [SerializeField] public Lever currentLever;
+    [SerializeField] public Lever currentLever;          // Lever データ
+
+
     private Vector2 startPos;       // 初期位置
     // private int direction = 1;      // 進む方向（右:1, 左:-1）
     private int  isHitBox = 0;       // レール接触中のカウント
@@ -49,11 +51,6 @@ public class TrolleyChoice : MonoBehaviour
     {
         startPos = transform.position;          // 初期位置の保存
         HitBox = GetComponent<BoxCollider2D>(); // 当たり判定の取得
-                                                // ChoicePointObject から Lever コンポーネントを取得
-      
-
-
-       
     }
 
     void Update()
@@ -146,7 +143,7 @@ public class TrolleyChoice : MonoBehaviour
     { 
         // Scene が MOVE のときだけ処理を行う
         if (state != Scene.Move)
-            return; // MOVE じゃなければ何もしない
+            return; 
 
         // MOVE 状態のときのみ switch 文を実行
         switch (other.tag)
@@ -160,10 +157,11 @@ public class TrolleyChoice : MonoBehaviour
                 isChange++;
 
                 GameManager.Instance.ChangePoint = other.gameObject; // 直前のChangeを記録
-                if (questionController != null && currentQuestion != null)
-                    leverController?.HandleLever(currentLever?.gameObject);
 
                 if (questionController != null && currentQuestion != null)
+                    leverController?.HandleLever(currentLever?.gameObject);// レバー操作
+
+                if (questionController != null && currentQuestion != null)// Question開始
                 {
                     
                     // Questionを開始
@@ -176,17 +174,17 @@ public class TrolleyChoice : MonoBehaviour
 
                         isChoice = choiceResult; // 結果を保持
 
-                        if (isChoice > 0) //ここで回答したときのレバーのPointによってSceneを変える
-                        //1ならそのままMove
+                        if (isChoice > 0) //そのままMove
+
                         {
                             state = Scene.Move;
                         }
 
                         else if(isChoice > 1)
                         {
-                            state = Scene.UPRail;
+                            state = Scene.UPRail; //上に移動する別のコードを挟んだ後にMove
                         }
-                        //2なら上に移動する別のコードを挟んだ後にMove
+                      
 
 
                     });
@@ -247,17 +245,17 @@ public class TrolleyChoice : MonoBehaviour
         }
     }
 
-    void ChoicePoint(int choice)
+    public void ChoicePoint(int choice)
     {
         switch (choice)
         {
-            case 1:
+            case 0:
                 Debug.Log("分岐1の処理");
                 //そのままMoveに切り替える
                 state = Scene.Move;
 
                 break;
-            case 2:
+            case 1:
                 Debug.Log("分岐2の処理");
                 //上に移動してMoveに切り替える
                 break;

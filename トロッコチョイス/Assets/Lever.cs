@@ -15,7 +15,8 @@ public class Lever : MonoBehaviour
 
     private bool isClicked = false; // クリックされたかどうか
 
-     void Start()
+
+    void Start()
     {
         // AudioSource 自動取得
         audioSource = GetComponent<AudioSource>();
@@ -25,12 +26,11 @@ public class Lever : MonoBehaviour
 
     private void Update()
     {
-        
 
         if (Input.GetMouseButtonDown(0)) // 左クリック
         {
             Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);// レイキャストでクリック対象を取得
 
             if (hit.collider != null && hit.collider.CompareTag("Lever"))
             {

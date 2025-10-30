@@ -129,9 +129,11 @@ GameObject:
   m_Component:
   - component: {fileID: 30028771}
   - component: {fileID: 30028772}
+  - component: {fileID: 30028774}
+  - component: {fileID: 30028773}
   m_Layer: 0
-  m_Name: Blue Lever
-  m_TagString: Untagged
+  m_Name: Lever1
+  m_TagString: Lever
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,6 +208,66 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &30028773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30028770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ea27499e309bf47a68620ee3e85626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leverTriggerName: 
+  leverSound: {fileID: 0}
+--- !u!61 &30028774
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30028770}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.15119219, y: 0.11339426}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.49, y: 4.88}
+    newSize: {x: 3.49, y: 4.88}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.356059, y: 3.6704645}
+  m_EdgeRadius: 0
 --- !u!1 &55479112
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,9 +278,11 @@ GameObject:
   m_Component:
   - component: {fileID: 55479113}
   - component: {fileID: 55479114}
+  - component: {fileID: 55479116}
+  - component: {fileID: 55479115}
   m_Layer: 0
-  m_Name: Red Lever
-  m_TagString: Untagged
+  m_Name: Lever2
+  m_TagString: Lever
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -293,6 +357,66 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &55479115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55479112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ea27499e309bf47a68620ee3e85626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leverTriggerName: Pull
+  leverSound: {fileID: 0}
+--- !u!61 &55479116
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55479112}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.11339426, y: -0.28348494}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.48, y: 4.69}
+    newSize: {x: 3.48, y: 4.69}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.3460588, y: 3.8206453}
+  m_EdgeRadius: 0
 --- !u!1 &222550996
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,6 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ChangePoint: {fileID: 0}
+  lever: {fileID: 0}
 --- !u!1 &1020279095
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,6 +601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questionText: {fileID: 0}
   choiceButtons: []
+  Choice: 0
 --- !u!1 &1569311212
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,13 +705,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1569311212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a77647737c744e4c9f0bccf357efadc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3be2ba6a4b0a072498ca50e9b5f89f7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RidSpeed: 5
   questionController: {fileID: 1522173225}
   currentQuestion: {fileID: 11400000, guid: 2e061a66acb325f48b6b3d3cb4b95960, type: 2}
+  leverController: {fileID: 0}
+  currentLever: {fileID: 0}
   questionRef: {fileID: 0}
+  ChoicePointObject: {fileID: 0}
+  isChoice: 0
 --- !u!61 &1569311218
 BoxCollider2D:
   m_ObjectHideFlags: 0

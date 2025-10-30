@@ -46,6 +46,7 @@ public class Question : MonoBehaviour
             switch (lastLeverName)
             {
                 case "Lever1":
+                    Choice = 0;
                     Debug.Log("プレイヤーがAを回答しました！");
                     EndQuestion(currentData.correctIndex);
                     break;

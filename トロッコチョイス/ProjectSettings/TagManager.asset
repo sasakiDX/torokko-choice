@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Rail
   - Change
+  - Lever 1
+  - Lever 2
+  - Lever1
+  - Lever2
+  - Lever
   layers:
   - Default
   - TransparentFX
