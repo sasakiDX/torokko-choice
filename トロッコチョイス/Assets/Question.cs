@@ -14,25 +14,68 @@ public class Question : MonoBehaviour
 
    public int Choice = 0;//仮の選択肢変数
 
+
+    private string lastLeverName = null;
+
+    void OnEnable()
+    {
+        // ClickLeverイベント登録
+        Lever.OnLeverClicked += ReceiveLeverInfo;
+    }
+
+    void OnDisable()
+    {
+        // 登録解除（メモリリーク防止）
+        Lever.OnLeverClicked -= ReceiveLeverInfo;
+    }
+
+    void ReceiveLeverInfo(string leverName)
+    {
+        lastLeverName = leverName;
+    }
+
+
     private void Update()
     {
-        // 仮想回答処理：スペースキーで回答完了
-        //Leverの操作による回答
 
-
-        if (onFinished != null && Input.GetKeyDown(KeyCode.Space))//青(そのまま)
+        if (lastLeverName != null)
         {
-            Debug.Log("プレイヤーがAを回答しました！");
-            EndQuestion(currentData.correctIndex);
+            Debug.Log("Questionが受け取ったレバー: " + lastLeverName);
+
+            // クリックされたレバーごとの分岐処理
+            switch (lastLeverName)
+            {
+                case "Lever1":
+                    Debug.Log("プレイヤーがAを回答しました！");
+                    EndQuestion(currentData.correctIndex);
+                    break;
+
+
+                case "Lever2":
+                    Choice = 1;
+                    Debug.Log("プレイヤーがBを回答しました！");
+                    EndQuestion(currentData.correctIndex);
+                    break;
+            }
+
+            // 処理後にリセット
+            lastLeverName = null;
         }
 
-        if (onFinished != null && Input.GetKeyDown(KeyCode.Space))//赤(レール変更)
-        {
-            Choice = 1;
-            Debug.Log("プレイヤーがBを回答しました！");
-            EndQuestion(currentData.correctIndex);
 
-        }
+        //if (onFinished != null && Input.GetKeyDown(KeyCode.Space))//青(そのまま)
+        //{
+        //    Debug.Log("プレイヤーがAを回答しました！");
+        //    EndQuestion(currentData.correctIndex);
+        //}
+        //
+        //if (onFinished != null && Input.GetKeyDown(KeyCode.RightArrow))//赤(レール変更)
+        //{
+        //    Choice = 1;
+        //    Debug.Log("プレイヤーがBを回答しました！");
+        //    EndQuestion(currentData.correctIndex);
+        //
+        //}
 
        
        
@@ -54,7 +97,7 @@ public class Question : MonoBehaviour
 
 
         currentData = data;
-        onFinished = finishedCallback; // ★Action<int> を受け取る
+        onFinished = finishedCallback; 
 
         Debug.Log($"Question 実行中: {data.questionText}");
         Debug.Log("プレイヤーに問題を表示中... (スペースキーで回答)");

@@ -1,25 +1,72 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
-using UnityEngine.UI;
-
-
-
 
 public class Lever : MonoBehaviour
 {
-    // レバーが引かれた時に分岐番号を通知するイベント
-    public event Action<int> ChoicePoint;  // ← イベント名を変更
+    [Header("レバー設定")]
+    public string leverTriggerName = "Pull";  // AnimatorのTrigger名
+    public AudioClip leverSound;              // 効果音
 
-    public void PullLever(int choice)
+    private AudioSource audioSource;
+    private bool canInteract = false; // Change に触れたかどうか
+
+    // Question に通知するイベント
+    public static event Action<string> OnLeverClicked;
+
+    private bool isClicked = false; // クリックされたかどうか
+
+     void Start()
     {
-        // choice = 1 または 2 など
-        Debug.Log("Lever pulled: choice " + choice);
+        // AudioSource 自動取得
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+    }
 
-        // メインに通知
-        ChoicePoint?.Invoke(choice);
+    private void Update()
+    {
+        
+
+        if (Input.GetMouseButtonDown(0)) // 左クリック
+        {
+            Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
+
+            if (hit.collider != null && hit.collider.CompareTag("Lever"))
+            {
+                GameObject lever = hit.collider.gameObject;
+                Debug.Log("Lever clicked: " + lever.name);
+
+                HandleLever(lever);
+
+                // 処理後にクリックフラグをリセット
+                ResetClick();
+            }
+        }
+    }
+
+
+    public void HandleLever(GameObject lever)
+    {
+
+       
+
+        // --- アニメーション ---
+        Animator anim = lever.GetComponent<Animator>();
+        if (anim != null && !string.IsNullOrEmpty(leverTriggerName))
+            anim.SetTrigger(leverTriggerName);
+
+        // --- 効果音 ---
+        if (leverSound != null && audioSource != null)
+            audioSource.PlayOneShot(leverSound);
+
+        // --- Questionに通知 ---
+        OnLeverClicked?.Invoke(lever.name);
+     
+    }
+
+    public void ResetClick()
+    {
+        isClicked = false;
     }
 }

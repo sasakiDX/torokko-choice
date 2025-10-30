@@ -15,10 +15,10 @@ public class TrolleyChoice : MonoBehaviour
     [Header("移動設定")]
     // public float moveDistance = 3f; // 上下の移動幅（1回の往復距離）
     public float RidSpeed = 5f;     // 移動速度(たまに反映されないため要確認)
- 
 
     enum Scene
     {     
+        Start,
         Look,// 停止中
         Move,     // レール上で移動中
         UPRail
@@ -30,8 +30,8 @@ public class TrolleyChoice : MonoBehaviour
 
     [SerializeField] private Question questionController; // Question UI制御
     [SerializeField] public QuestionData currentQuestion;           // 問題データ
-
-
+    [SerializeField] private Lever leverController;       // Lever 制御
+    [SerializeField] public Lever currentLever;
     private Vector2 startPos;       // 初期位置
     // private int direction = 1;      // 進む方向（右:1, 左:-1）
     private int  isHitBox = 0;       // レール接触中のカウント
@@ -50,19 +50,10 @@ public class TrolleyChoice : MonoBehaviour
         startPos = transform.position;          // 初期位置の保存
         HitBox = GetComponent<BoxCollider2D>(); // 当たり判定の取得
                                                 // ChoicePointObject から Lever コンポーネントを取得
-        lever = ChoicePointObject.GetComponent<Lever>();
+      
 
 
-        if (lever != null)
-        {
-            // Lever のイベントに登録
-            lever.ChoicePoint += ChoicePoint;  // ← イベント名を変更に合わせる
-        }
-        else
-        {
-            Debug.LogError("ChoicePointObject に Lever コンポーネントが見つかりません！");
-        }
-
+       
     }
 
     void Update()
@@ -71,9 +62,19 @@ public class TrolleyChoice : MonoBehaviour
         //トロッコの状態のみ
         switch (state)
         {
+
+            case Scene.Start:
+
+                if (Input.GetKeyDown(KeyCode.RightArrow))//タイトルからプレイ画面に移行
+                {
+                    state = Scene.Look;
+                }
+
+                break;
+
             case Scene.Look:
-                
-                if (Input.GetKeyDown(KeyCode.RightArrow))
+
+                if (Input.GetKeyDown(KeyCode.RightArrow))//ここでゲーム動作開始
                 {
                     state = Scene.Move;
                 }
@@ -159,9 +160,12 @@ public class TrolleyChoice : MonoBehaviour
                 isChange++;
 
                 GameManager.Instance.ChangePoint = other.gameObject; // 直前のChangeを記録
-               
+                if (questionController != null && currentQuestion != null)
+                    leverController?.HandleLever(currentLever?.gameObject);
+
                 if (questionController != null && currentQuestion != null)
                 {
+                    
                     // Questionを開始
                     questionController.StartQuestion(currentQuestion, (choiceResult) =>
                     {
