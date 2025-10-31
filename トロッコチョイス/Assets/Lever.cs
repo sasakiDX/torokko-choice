@@ -15,6 +15,14 @@ public class Lever : MonoBehaviour
 
     private bool isClicked = false; // クリックされたかどうか
 
+    enum Secen
+    {
+    
+        Block,
+        Check,
+    }
+
+    private Secen state = Secen.Block; // 現在の状態
 
     void Start()
     {
@@ -24,25 +32,38 @@ public class Lever : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
     }
 
-    private void Update()
+    void Update()
     {
-
-        if (Input.GetMouseButtonDown(0)) // 左クリック
+        switch (state)
         {
-            Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);// レイキャストでクリック対象を取得
+            case Secen.Block:
+                if (Input.GetMouseButtonDown(0)) // 左クリック
+                {
+                    state = Secen.Check;
+                }
+                    break;
 
-            if (hit.collider != null && hit.collider.CompareTag("Lever"))
-            {
-                GameObject lever = hit.collider.gameObject;
-                Debug.Log("Lever clicked: " + lever.name);
 
-                HandleLever(lever);
+            case Secen.Check:
+               
+                    Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);// レイキャストでクリック対象を取得
 
-                // 処理後にクリックフラグをリセット
-                ResetClick();
-            }
+                    if (hit.collider != null && hit.collider.CompareTag("Lever"))
+                    {
+                        GameObject lever = hit.collider.gameObject;
+                        Debug.Log("Lever clicked: " + lever.name);
+
+                        HandleLever(lever);
+
+                        // 処理後にクリックフラグをリセット
+                        ResetClick();
+                    }
+                
+
+                break;
         }
+       
     }
 
 
