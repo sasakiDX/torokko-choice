@@ -141,111 +141,46 @@ public class TrolleyChoice : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)//タグに触れたとき
     { 
+
         // Scene が MOVE のときだけ処理を行う
         if (state != Scene.Move)
-            return; 
+            return;
 
         // MOVE 状態のときのみ switch 文を実行
         switch (other.tag)
         {
             case "Rail":
-                isHitBox++; // 複数接触に対応
-                //state = Scene.Move; // すでに MOVE なので不要
+                isHitBox++;
                 break;
 
             case "Change":
                 isChange++;
+                GameManager.Instance.ChangePoint = other.gameObject;
 
-
-                GameManager.Instance.ChangePoint = other.gameObject; // 直前のChangeを記録
-
-                if (questionController != null && currentQuestion != null)
-                    leverController?.HandleLever(currentLever?.gameObject);// レバー操作
+                // レバーを探す（Change オブジェクトの子などにあると想定）
+                Lever lever = other.GetComponentInChildren<Lever>();
+                if (lever != null)
                 {
-                
+                    lever.HandleLever(lever.gameObject);
+                    Debug.Log("レバー作動");
                 }
 
-                if (questionController != null && currentQuestion != null)// Question開始
+                if (questionController != null && currentQuestion != null)
                 {
-                    
-                    // Questionを開始
                     questionController.StartQuestion(currentQuestion, (choiceResult) =>
                     {
-                        Debug.Log("Question終了後、Moveに戻る");
                         isChange--;
-
                         RidSpeed = 5f;
+                        isChoice = choiceResult;
 
-                        isChoice = choiceResult; // 結果を保持
-
-                        if (isChoice > 0) //そのままMove
-
-                        {
-                            state = Scene.Move;
-                        }
-
-                        else if(isChoice > 1)
-                        {
-                            state = Scene.UPRail; //上に移動する別のコードを挟んだ後にMove
-                        }
-                      
-
-
+                        state = (isChoice > 1) ? Scene.UPRail : Scene.Move;
                     });
-
-                    
-
                 }
                 else
                 {
                     Debug.LogError("questionController または currentQuestion が設定されていません");
                 }
                 break;
-
-                /*
-                //case "Change":
-                //    isChange++;
-
-                //    GameManager.Instance.ChangePoint = other.gameObject; // 直前のChangeを記録
-
-                //    Change changeComp = other.GetComponent<Change>();
-                //    if (changeComp == null)
-                //    {
-                //        Debug.LogWarning($"{other.name} に Change コンポーネントがありません");
-                //    }
-
-                //    if (questionController != null && currentQuestion != null)
-                //    {
-                //        questionController.StartQuestion(currentQuestion, () =>
-                //        {
-                //            Debug.Log("Question終了後、Moveに戻る");
-                //            isChange--;
-                //            state = Scene.Move;
-                //        });
-                //    }
-                //    else
-                //    {
-                //        Debug.LogError("questionController または currentQuestion が設定されていません");
-                //        isChange--; // 念のため減らす
-                //        state = Scene.Move;
-                //    }
-                //    break;
-
-
-
-
-                
-                if (changeComp != null && QuestionCSVLoader.Questions.Count > 0)
-                {
-                    int id = changeComp.questionID - 1;
-                    if (id >= 0 && id < QuestionCSVLoader.Questions.Count)
-                    {
-                        currentQuestion = QuestionCSVLoader.Questions[id];
-                        Debug.Log($"問題 {id + 1} を取得: {currentQuestion.questionText}");
-                    }
-                }
-                */
-
         }
     }
 
