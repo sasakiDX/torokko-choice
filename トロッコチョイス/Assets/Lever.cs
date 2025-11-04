@@ -7,6 +7,7 @@ public class Lever : MonoBehaviour
     public string leverTriggerName = "Pull";  // AnimatorのTrigger名
     public AudioClip leverSound;              // 効果音
 
+    public int LeverPoint = 0;//仮の選択肢変数
     private AudioSource audioSource;
     private bool canInteract = false; // Change に触れたかどうか
 
@@ -17,7 +18,7 @@ public class Lever : MonoBehaviour
 
     enum Secen
     {
-    
+
         Block,
         Check,
     }
@@ -34,43 +35,36 @@ public class Lever : MonoBehaviour
 
     void Update()
     {
-        switch (state)
+        if (Input.GetMouseButtonDown(0)) // 左クリック
         {
-            case Secen.Block:
-                if (Input.GetMouseButtonDown(0)) // 左クリック
+          
+            
+                Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);// レイキャストでクリック対象を取得
+
+                if (hit.collider != null && hit.collider.CompareTag("Lever"))
                 {
-                    state = Secen.Check;
+                    GameObject lever = hit.collider.gameObject;
+                    Debug.Log("Lever clicked: " + lever.name);
+
+                    HandleLever(lever);
+
+                    // 処理後にクリックフラグをリセット
+                    ResetClick();
+
                 }
-                    break;
 
-
-            case Secen.Check:
-               
-                    Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);// レイキャストでクリック対象を取得
-
-                    if (hit.collider != null && hit.collider.CompareTag("Lever"))
-                    {
-                        GameObject lever = hit.collider.gameObject;
-                        Debug.Log("Lever clicked: " + lever.name);
-
-                        HandleLever(lever);
-
-                        // 処理後にクリックフラグをリセット
-                        ResetClick();
-                    }
-                
-
-                break;
+           
         }
        
+               
     }
 
 
     public void HandleLever(GameObject lever)
     {
 
-       
+
 
         // --- アニメーション ---
         Animator anim = lever.GetComponent<Animator>();
@@ -83,7 +77,7 @@ public class Lever : MonoBehaviour
 
         // --- Questionに通知 ---
         OnLeverClicked?.Invoke(lever.name);
-     
+
     }
 
     public void ResetClick()

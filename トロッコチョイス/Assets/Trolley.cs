@@ -156,10 +156,14 @@ public class TrolleyChoice : MonoBehaviour
             case "Change":
                 isChange++;
 
+
                 GameManager.Instance.ChangePoint = other.gameObject; // 直前のChangeを記録
 
                 if (questionController != null && currentQuestion != null)
                     leverController?.HandleLever(currentLever?.gameObject);// レバー操作
+                {
+                
+                }
 
                 if (questionController != null && currentQuestion != null)// Question開始
                 {
