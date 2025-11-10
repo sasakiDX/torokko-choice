@@ -69,4 +69,11 @@ public class Lever : MonoBehaviour
     {
         isClicked = false;
     }
+
+
+
+
+
+
+
 }
