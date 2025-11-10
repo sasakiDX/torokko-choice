@@ -10,14 +10,14 @@ using UnityEngine.SceneManagement;
 
 public class TrolleyChoice : MonoBehaviour
 {
-    
-   
+
+
     [Header("移動設定")]
     // public float moveDistance = 3f; // 上下の移動幅（1回の往復距離）
     public float RidSpeed = 5f;     // 移動速度(たまに反映されないため要確認)
 
     enum Scene
-    {     
+    {
         Start,
         Look,// 停止中
         Move,     // レール上で移動中
@@ -36,8 +36,8 @@ public class TrolleyChoice : MonoBehaviour
 
     private Vector2 startPos;       // 初期位置
     // private int direction = 1;      // 進む方向（右:1, 左:-1）
-    private int  isHitBox = 0;       // レール接触中のカウント
-    private int  isChange = 0;       // 分岐に接触中
+    private int isHitBox = 0;       // レール接触中のカウント
+    private int isChange = 0;       // 分岐に接触中
     //private bool isChange = false;
 
     private BoxCollider2D HitBox;   // 当たり判定
@@ -45,7 +45,7 @@ public class TrolleyChoice : MonoBehaviour
     public GameObject ChoicePointObject;  // Lever がアタッチされたオブジェクト
     private Lever lever;                  // Lever コンポーネント
 
-    public int  isChoice; //レバーの選択肢によって変わるフラグ
+    public int isChoice; //レバーの選択肢によって変わるフラグ
 
     void Start()
     {
@@ -80,7 +80,7 @@ public class TrolleyChoice : MonoBehaviour
             case Scene.Move:
                 transform.Translate(Vector2.right * RidSpeed * Time.deltaTime);//移動中
 
-               
+
                 if (isChange > 0)
                 {
                     RidSpeed = 0;
@@ -124,24 +124,23 @@ public class TrolleyChoice : MonoBehaviour
     }
 
 
-    
 
 
-        //transform.Translate(Vector2.right * RidSpeed * Time.deltaTime);
-        //レールに触れている間だけ動作
-        //
-        //if (isChange > 0)
-        //{
-        //    Scene.Question();//イベントシーンへ移行
-        //}
-        //
+
+    //transform.Translate(Vector2.right * RidSpeed * Time.deltaTime);
+    //レールに触れている間だけ動作
+    //
+    //if (isChange > 0)
+    //{
+    //    Scene.Question();//イベントシーンへ移行
+    //}
+    //
 
 
 
 
     private void OnTriggerEnter2D(Collider2D other)//タグに触れたとき
-    { 
-
+    {
         // Scene が MOVE のときだけ処理を行う
         if (state != Scene.Move)
             return;
@@ -150,37 +149,99 @@ public class TrolleyChoice : MonoBehaviour
         switch (other.tag)
         {
             case "Rail":
-                isHitBox++;
+                isHitBox++; // 複数接触に対応
+                //state = Scene.Move; // すでに MOVE なので不要
                 break;
 
             case "Change":
                 isChange++;
-                GameManager.Instance.ChangePoint = other.gameObject;
 
-                // レバーを探す（Change オブジェクトの子などにあると想定）
-                Lever lever = other.GetComponentInChildren<Lever>();
-                if (lever != null)
-                {
-                    lever.HandleLever(lever.gameObject);
-                    Debug.Log("レバー作動");
-                }
+                GameManager.Instance.ChangePoint = other.gameObject; // 直前のChangeを記録
 
                 if (questionController != null && currentQuestion != null)
+                    leverController?.HandleLever(currentLever?.gameObject);// レバー操作
+
+                if (questionController != null && currentQuestion != null)// Question開始
                 {
+
+                    // Questionを開始
                     questionController.StartQuestion(currentQuestion, (choiceResult) =>
                     {
+                        Debug.Log("Question終了後、Moveに戻る");
                         isChange--;
-                        RidSpeed = 5f;
-                        isChoice = choiceResult;
 
-                        state = (isChoice > 1) ? Scene.UPRail : Scene.Move;
+                        RidSpeed = 5f;
+
+                        isChoice = choiceResult; // 結果を保持
+
+                        if (isChoice > 0) //そのままMove
+
+                        {
+                            state = Scene.Move;
+                        }
+
+                        else if (isChoice > 1)
+                        {
+                            state = Scene.UPRail; //上に移動する別のコードを挟んだ後にMove
+                        }
+
+
+
                     });
+
+
+
                 }
                 else
                 {
                     Debug.LogError("questionController または currentQuestion が設定されていません");
                 }
                 break;
+
+                /*
+                //case "Change":
+                //    isChange++;
+
+                //    GameManager.Instance.ChangePoint = other.gameObject; // 直前のChangeを記録
+
+                //    Change changeComp = other.GetComponent<Change>();
+                //    if (changeComp == null)
+                //    {
+                //        Debug.LogWarning($"{other.name} に Change コンポーネントがありません");
+                //    }
+
+                //    if (questionController != null && currentQuestion != null)
+                //    {
+                //        questionController.StartQuestion(currentQuestion, () =>
+                //        {
+                //            Debug.Log("Question終了後、Moveに戻る");
+                //            isChange--;
+                //            state = Scene.Move;
+                //        });
+                //    }
+                //    else
+                //    {
+                //        Debug.LogError("questionController または currentQuestion が設定されていません");
+                //        isChange--; // 念のため減らす
+                //        state = Scene.Move;
+                //    }
+                //    break;
+
+
+
+
+                
+                if (changeComp != null && QuestionCSVLoader.Questions.Count > 0)
+                {
+                    int id = changeComp.questionID - 1;
+                    if (id >= 0 && id < QuestionCSVLoader.Questions.Count)
+                    {
+                        currentQuestion = QuestionCSVLoader.Questions[id];
+                        Debug.Log($"問題 {id + 1} を取得: {currentQuestion.questionText}");
+                    }
+                }
+                */
+
         }
     }
 

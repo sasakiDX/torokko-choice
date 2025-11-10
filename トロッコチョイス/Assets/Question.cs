@@ -12,7 +12,7 @@ public class Question : MonoBehaviour
     private Action<int> onFinished;
     private QuestionData currentData;
 
-   public int Choice = 0;//仮の選択肢変数
+    public int Choice = 0;//仮の選択肢変数
 
 
     private string lastLeverName = null;
@@ -78,8 +78,8 @@ public class Question : MonoBehaviour
         //
         //}
 
-       
-       
+
+
 
     }
 
@@ -98,7 +98,7 @@ public class Question : MonoBehaviour
 
 
         currentData = data;
-        onFinished = finishedCallback; 
+        onFinished = finishedCallback;
 
         Debug.Log($"Question 実行中: {data.questionText}");
         Debug.Log("プレイヤーに問題を表示中... (スペースキーで回答)");
@@ -162,5 +162,5 @@ public class Question : MonoBehaviour
 
     }
 
-  
+
 }
