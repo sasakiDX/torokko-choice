@@ -1279,6 +1279,7 @@ GameObject:
   - component: {fileID: 946466540}
   - component: {fileID: 946466539}
   - component: {fileID: 946466538}
+  - component: {fileID: 946466542}
   m_Layer: 0
   m_Name: Change Rail (1)
   m_TagString: Change
@@ -1298,7 +1299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96613b18fe385c448b4af489400a88f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questionID: 2
 --- !u!61 &946466539
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1415,6 +1415,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.303}
+--- !u!114 &946466542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946466537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d457aa4b6367efe449e07ba0adf4d455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionID: 0
 --- !u!1 &1020279095
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,6 +1532,7 @@ GameObject:
   - component: {fileID: 1238620790}
   - component: {fileID: 1238620789}
   - component: {fileID: 1238620792}
+  - component: {fileID: 1238620793}
   m_Layer: 0
   m_Name: Change Rail
   m_TagString: Change
@@ -1654,7 +1668,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96613b18fe385c448b4af489400a88f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questionID: 1
+--- !u!114 &1238620793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238620788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d457aa4b6367efe449e07ba0adf4d455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionID: 0
 --- !u!1 &1301775802
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,8 +1809,53 @@ Transform:
   m_GameObject: {fileID: 1301775802}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.48, y: 1.31, z: 0}
+  m_LocalPosition: {x: -16.92, y: -18.19, z: 0}
   m_LocalScale: {x: 1.293726, y: 0.49446872, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1421030000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1421030002}
+  - component: {fileID: 1421030001}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1421030001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421030000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ec9f33c417441468d1198169dac1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  csvFile: {fileID: 0}
+--- !u!4 &1421030002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421030000}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.572197, y: -12.780601, z: -0.08697295}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2078,7 +2149,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RidSpeed: 5
   questionController: {fileID: 1522173225}
-  currentQuestion: {fileID: 11400000, guid: 2e061a66acb325f48b6b3d3cb4b95960, type: 2}
+  currentQuestion:
+    id: 0
+    questionText: 
+    choices: []
+    correctIndex: 0
   leverController: {fileID: 0}
   currentLever: {fileID: 0}
   questionRef: {fileID: 0}
@@ -2437,8 +2512,9 @@ GameObject:
   - component: {fileID: 1722581571}
   - component: {fileID: 1722581570}
   - component: {fileID: 1722581569}
+  - component: {fileID: 1722581573}
   m_Layer: 0
-  m_Name: Change Rail (1)
+  m_Name: "Tutorial\u3000Rail"
   m_TagString: Change
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2456,7 +2532,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96613b18fe385c448b4af489400a88f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questionID: 0
 --- !u!61 &1722581570
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2567,12 +2642,25 @@ Transform:
   m_GameObject: {fileID: 1722581568}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.0026427093, w: 0.99999654}
-  m_LocalPosition: {x: -19.0304, y: -8.7696, z: 0}
-  m_LocalScale: {x: 1.2054236, y: 0.52864325, z: 1}
+  m_LocalPosition: {x: -18.690002, y: -8.84, z: 0}
+  m_LocalScale: {x: 1.2054238, y: 0.52864337, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.303}
+--- !u!114 &1722581573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722581568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d457aa4b6367efe449e07ba0adf4d455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionID: 0
 --- !u!1 &1820089028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3383,9 +3471,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 222550997}
   - {fileID: 1569311215}
+  - {fileID: 1722581572}
   - {fileID: 1238620791}
   - {fileID: 946466541}
-  - {fileID: 1722581572}
   - {fileID: 777659811}
   - {fileID: 1301775805}
   - {fileID: 1525968156}
@@ -3402,3 +3490,4 @@ SceneRoots:
   - {fileID: 520543701}
   - {fileID: 478043631}
   - {fileID: 443018738}
+  - {fileID: 1421030002}
