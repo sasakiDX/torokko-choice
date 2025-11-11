@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Change : MonoBehaviour
 {
-   public int questionID = 1; // CSV内のidに対応;
+    [Tooltip("CSV内の問題番号（1始まり）")]
+    public int questionID = 1;
 }

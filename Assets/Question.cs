@@ -42,6 +42,7 @@ public class Question : MonoBehaviour
         {
             Debug.Log("Questionが受け取ったレバー: " + lastLeverName);
 
+
             // クリックされたレバーごとの分岐処理
             switch (lastLeverName)
             {
