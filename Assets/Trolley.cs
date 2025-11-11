@@ -153,11 +153,14 @@ public class TrolleyChoice : MonoBehaviour
                 //state = Scene.Move; // すでに MOVE なので不要
                 break;
 
+                
             case "Change":
                 isChange++;
+                Debug.Log("Changeに触れた");
 
                 GameManager.Instance.ChangePoint = other.gameObject; // 直前のChangeを記録
-
+                if (questionController != null && currentQuestion != null)
+                    leverController?.HandleLever(currentLever?.gameObject);// レバー操作
 
                 Debug.Log("Question開始");
                 if (questionController != null && currentQuestion != null)// Question開始
@@ -168,6 +171,7 @@ public class TrolleyChoice : MonoBehaviour
                     {
                         Debug.Log("Question終了後、Moveに戻る");
                         isChange = 0;
+                        
 
                         RidSpeed = 5f;
 
@@ -195,8 +199,7 @@ public class TrolleyChoice : MonoBehaviour
                 {
                     Debug.LogError("questionController または currentQuestion が設定されていません");
                 }
-                if (questionController != null && currentQuestion != null)
-                    leverController?.HandleLever(currentLever?.gameObject);// レバー操作
+              
 
 
                 break;

@@ -95,7 +95,7 @@ public class Question : MonoBehaviour
         //    Debug.LogError("QuestionData が null です。CSV 読み込みを確認してください。");
         //    return;
         //}
-
+        Debug.Log("出題");
 
 
         currentData = data;
