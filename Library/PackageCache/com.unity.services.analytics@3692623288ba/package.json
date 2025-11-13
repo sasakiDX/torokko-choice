@@ -1,0 +1,51 @@
+{
+  "name": "com.unity.services.analytics",
+  "displayName": "Analytics",
+  "version": "6.0.3",
+  "unity": "2021.3",
+  "description": "The Unity Analytics package automatically collects core events and user properties when someone uses your game or application, and enables you to track specific in-game actions your user performs by defining custom events. The data collected from this package is surfaced in the Unity dashboard where you can use it to gather user insights, segment your player base and make informed decisions around the optimization of your game.",
+  "dependencies": {
+    "com.unity.ugui": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.services.core": "1.12.4"
+  },
+  "samples": [
+    {
+      "displayName": "Standard Events",
+      "description": "Example of using the predefined standardized products, including a demo scene",
+      "path": "Samples~/StandardEvents"
+    }
+  ],
+  "_upm": {
+    "gameService": {
+      "genericDashboardUrl": "https://cloud.unity.com/analytics",
+      "projectDashboardUrl": "https://cloud.unity.com/home/organizations/{0}/projects/{1}/environments/default/analytics/v2/about",
+      "projectDashboardUrlType": "OrganizationKeyAndProjectGuid",
+      "configurePath": "Project/Services/Analytics - Gaming Services"
+    },
+    "supportedPlatforms": [
+      "Android",
+      "iOS",
+      "Linux",
+      "Mac",
+      "PC",
+      "Windows 8.1 Universal",
+      "Windows 10 Universal",
+      "WebGL"
+    ],
+    "changelog": "### Fixed\n\n* Control characters (e.g. newline) are now serialised correctly and will not cause event batches to be discarded"
+  },
+  "relatedPackages": {
+    "com.unity.services.analytics.tests": "6.0.3"
+  },
+  "upmCi": {
+    "footprint": "f2d73904e1ea9b6eb56eb55025e1851a32189783"
+  },
+  "documentationUrl": "https://docs.unity3d.com/Packages/com.unity.services.analytics@6.0/manual/index.html",
+  "repository": {
+    "url": "https://github.cds.internal.unity3d.com/unity/operate-services-sdk.git",
+    "type": "git",
+    "revision": "d230200c331e8d1ebc6a050557bd1ae58d01e0fc"
+  },
+  "_fingerprint": "3692623288ba229ed0f5eb57c112f2723e2f03cf"
+}
