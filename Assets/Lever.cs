@@ -27,17 +27,19 @@ public class Lever : MonoBehaviour
     private void Update()
     {
 
+
         if (Input.GetMouseButtonDown(0)) // 左クリック
         {
             Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);// レイキャストでクリック対象を取得
+            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);//クリック対象を取得
 
-            if (hit.collider != null && hit.collider.CompareTag("Lever"))
+            if (hit.collider != null && hit.collider.CompareTag("Lever"))//レバーがクリックされた場合
             {
                 GameObject lever = hit.collider.gameObject;
                 Debug.Log("Lever clicked: " + lever.name);
 
                 HandleLever(lever);
+
 
                 // 処理後にクリックフラグをリセット
                 ResetClick();

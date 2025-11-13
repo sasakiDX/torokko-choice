@@ -31,14 +31,14 @@ public class Question : MonoBehaviour
 
     void ReceiveLeverInfo(string leverName)
     {
-        lastLeverName = leverName;
+        lastLeverName = leverName;// 最後にクリックされたレバー名を保存
     }
 
 
     private void Update()
     {
 
-        if (lastLeverName != null)
+        if (lastLeverName != null)// 
         {
             Debug.Log("Questionが受け取ったレバー: " + lastLeverName);
 
@@ -55,6 +55,7 @@ public class Question : MonoBehaviour
 
                 case "Lever2":
                     Choice = 1;
+                    Debug.Log("1");
                     Debug.Log("プレイヤーがBを回答しました！");
                     EndQuestion(currentData.correctIndex);
                     break;
@@ -63,6 +64,7 @@ public class Question : MonoBehaviour
             // 処理後にリセット
             lastLeverName = null;
         }
+
 
 
         //if (onFinished != null && Input.GetKeyDown(KeyCode.Space))//青(そのまま)

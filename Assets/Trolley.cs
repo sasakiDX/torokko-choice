@@ -10,8 +10,6 @@ using UnityEngine.SceneManagement;
 
 public class TrolleyChoice : MonoBehaviour
 {
-
-
     [Header("移動設定")]
     // public float moveDistance = 3f; // 上下の移動幅（1回の往復距離）
     public float RidSpeed = 5f;     // 移動速度(たまに反映されないため要確認)
@@ -32,6 +30,8 @@ public class TrolleyChoice : MonoBehaviour
     [SerializeField] public QuestionData currentQuestion; // 問題データ
     [SerializeField] private Lever leverController;       // Lever 制御
     [SerializeField] public Lever currentLever;          // Lever データ
+    [SerializeField] public int Choice = 0;//仮の選択肢変数
+
 
 
     private Vector2 startPos;       // 初期位置
@@ -44,8 +44,6 @@ public class TrolleyChoice : MonoBehaviour
     [SerializeField] private Question questionRef;// Question参照
     public GameObject ChoicePointObject;  // Lever がアタッチされたオブジェクト
     private Lever lever;                  // Lever コンポーネント
-
-    public int isChoice; //レバーの選択肢によって変わるフラグ
 
     void Start()
     {
@@ -170,25 +168,26 @@ public class TrolleyChoice : MonoBehaviour
                     questionController.StartQuestion(currentQuestion, (choiceResult) =>
                     {
                         Debug.Log("Question終了後、Moveに戻る");
+
                         isChange = 0;
                         
 
                         RidSpeed = 5f;
 
-                        isChoice = choiceResult; // 結果を保持
+                        Choice = choiceResult; // 結果を保持
 
-                        if (isChoice > 0) //そのままMove
+                        if (Choice > 0) //そのままMove
 
                         {
                             state = Scene.Move;
                         }
 
-                        else if (isChoice > 1)
+                        else if (Choice > 1)
                         {
                             state = Scene.UPRail; //上に移動する別のコードを挟んだ後にMove
                         }
 
-
+                        Choice = 0;
 
                     });
 
@@ -199,8 +198,8 @@ public class TrolleyChoice : MonoBehaviour
                 {
                     Debug.LogError("questionController または currentQuestion が設定されていません");
                 }
-              
 
+                
 
                 break;
 
