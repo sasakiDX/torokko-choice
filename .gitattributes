@@ -1,0 +1,6 @@
+*.unity      merge=unityyamlmerge text eol=lf
+*.prefab     merge=unityyamlmerge text eol=lf
+*.mat        merge=unityyamlmerge text eol=lf
+*.anim       merge=unityyamlmerge text eol=lf
+*.asset      merge=unityyamlmerge text eol=lf
+*.cs		 merge=vsdiffmerge text eol=lf
