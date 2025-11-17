@@ -95,8 +95,24 @@ public class TrolleyChoice : MonoBehaviour
 
             case Scene.UPRail:
 
-              
-                //上のレールに移動するコードをここに書く
+                // 目標の高さ
+                Debug.Log("上昇");
+                float targetHeight = startPos.y + 300f; // 上に3ユニット上げる例
+                float step = upSpeed * Time.deltaTime;
+
+                Vector3 currentPos = transform.position;
+                Vector3 targetPos = new Vector3(currentPos.x, targetHeight, currentPos.y);
+
+                // 滑らかに上昇
+                transform.position = Vector3.MoveTowards(currentPos, targetPos, step);
+
+                // 目標に到達したらMoveに戻る
+                if (Mathf.Approximately(transform.position.y, targetHeight))
+                {
+                    state = Scene.Move;
+                    RidSpeed = 5f; // 必要に応じて速度を元に戻す
+                }
+
                 break;
 
 
@@ -189,7 +205,7 @@ public class TrolleyChoice : MonoBehaviour
                             state = Scene.UPRail; //上に移動する別のコードを挟んだ後にMove
                         }
 
-                        Choice = 0;
+                       
 
                     });
 
@@ -205,49 +221,11 @@ public class TrolleyChoice : MonoBehaviour
 
                 break;
 
-                /*
-                //case "Change":
-                //    isChange++;
-
-                //    GameManager.Instance.ChangePoint = other.gameObject; // 直前のChangeを記録
-
-                //    Change changeComp = other.GetComponent<Change>();
-                //    if (changeComp == null)
-                //    {
-                //        Debug.LogWarning($"{other.name} に Change コンポーネントがありません");
-                //    }
-
-                //    if (questionController != null && currentQuestion != null)
-                //    {
-                //        questionController.StartQuestion(currentQuestion, () =>
-                //        {
-                //            Debug.Log("Question終了後、Moveに戻る");
-                //            isChange--;
-                //            state = Scene.Move;
-                //        });
-                //    }
-                //    else
-                //    {
-                //        Debug.LogError("questionController または currentQuestion が設定されていません");
-                //        isChange--; // 念のため減らす
-                //        state = Scene.Move;
-                //    }
-                //    break;
-
-
-
-
-                
-                if (changeComp != null && QuestionCSVLoader.Questions.Count > 0)
+            case "loop":
                 {
-                    int id = changeComp.questionID - 1;
-                    if (id >= 0 && id < QuestionCSVLoader.Questions.Count)
-                    {
-                        currentQuestion = QuestionCSVLoader.Questions[id];
-                        Debug.Log($"問題 {id + 1} を取得: {currentQuestion.questionText}");
-                    }
+                    transform.position = new Vector2(startPos.x, transform.position.y);
                 }
-                */
+
 
         }
     }
