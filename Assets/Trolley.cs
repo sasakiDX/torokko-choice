@@ -14,6 +14,7 @@ public class TrolleyChoice : MonoBehaviour
     [Header("移動設定")]
     // public float moveDistance = 3f; // 上下の移動幅（1回の往復距離）
     public float RidSpeed = 5f;     // 移動速度(たまに反映されないため要確認)
+    public float upSpeed = 50f;      // 上下移動速度
 
     enum Scene
     {
@@ -94,7 +95,7 @@ public class TrolleyChoice : MonoBehaviour
 
             case Scene.UPRail:
 
-
+              
                 //上のレールに移動するコードをここに書く
                 break;
 

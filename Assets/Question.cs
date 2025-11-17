@@ -10,7 +10,7 @@ public class Question : MonoBehaviour
     public Button[] choiceButtons;
 
     private Action<int> onFinished;
-    private QuestionData currentData;
+    private QuestionData currentData;// 現在の問題データ
 
     public int Choice = 0;//仮の選択肢変数
 
@@ -125,7 +125,7 @@ public class Question : MonoBehaviour
             }
 
             int index = i;
-            button.onClick.RemoveAllListeners();//
+            button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => EndQuestion(index));// 選択肢がクリックされたときに EndQuestion を呼び出す
         }
 
