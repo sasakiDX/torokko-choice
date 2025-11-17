@@ -6,6 +6,7 @@ using System;
 using UnityEngine.InputSystem.Switch;
 using UnityEngine.SceneManagement;
 
+
 //トロッコ本体
 
 public class TrolleyChoice : MonoBehaviour
