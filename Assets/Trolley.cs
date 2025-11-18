@@ -11,10 +11,14 @@ using UnityEngine.SceneManagement;
 
 public class TrolleyChoice : MonoBehaviour
 {
+    private GameObject lastChangeObject = null;
+    private string changeOriginalTag = "Change";
+
     [Header("移動設定")]
     // public float moveDistance = 3f; // 上下の移動幅（1回の往復距離）
     public float RidSpeed = 5f;     // 移動速度(たまに反映されないため要確認)
     public float upSpeed = 50f;      // 上下移動速度
+    private float slopeAngle = 0f;// 坂レールの角度
 
     enum Scene
     {
@@ -34,7 +38,7 @@ public class TrolleyChoice : MonoBehaviour
     [SerializeField] public Lever currentLever;          // Lever データ
     [SerializeField] public int Choice = 0;//仮の選択肢変数
 
-
+   
 
     private Vector2 startPos;       // 初期位置
     // private int direction = 1;      // 進む方向（右:1, 左:-1）
@@ -95,25 +99,15 @@ public class TrolleyChoice : MonoBehaviour
 
             case Scene.UPRail:
 
-                // 目標の高さ
-                Debug.Log("上昇");
-                float targetHeight = startPos.y + 300f; // 上に3ユニット上げる例
-                float step = upSpeed * Time.deltaTime;
+                // 坂方向の単位ベクトルを計算
+                float rad = slopeAngle * Mathf.Deg2Rad;
+                Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;
 
-                Vector3 currentPos = transform.position;
-                Vector3 targetPos = new Vector3(currentPos.x, targetHeight, currentPos.y);
-
-                // 滑らかに上昇
-                transform.position = Vector3.MoveTowards(currentPos, targetPos, step);
-
-                // 目標に到達したらMoveに戻る
-                if (Mathf.Approximately(transform.position.y, targetHeight))
-                {
-                    state = Scene.Move;
-                    RidSpeed = 5f; // 必要に応じて速度を元に戻す
-                }
+                // 坂を滑らかに上る
+                transform.Translate(dir * upSpeed * Time.deltaTime);
 
                 break;
+
 
 
 
@@ -193,19 +187,16 @@ public class TrolleyChoice : MonoBehaviour
                         RidSpeed = 5f;
 
                         Choice = choiceResult; // 結果を保持
-
-                        if (Choice > 0) //そのままMove
-
+                        if (Choice == 0)
                         {
-                            state = Scene.Move;
+                            state = Scene.Move;   // 下のルート
+                        }
+                        else if (Choice == 1)
+                        {
+                            state = Scene.UPRail; // 坂ルート
                         }
 
-                        else if (Choice > 1)
-                        {
-                            state = Scene.UPRail; //上に移動する別のコードを挟んだ後にMove
-                        }
 
-                       
 
                     });
 
@@ -217,16 +208,39 @@ public class TrolleyChoice : MonoBehaviour
                     Debug.LogError("questionController または currentQuestion が設定されていません");
                 }
 
-                
 
                 break;
 
-            case "loop":
+            case "Slope":
+                if (Choice == 1)   // Choice1 のときだけ坂へ
                 {
-                    transform.position = new Vector2(startPos.x, transform.position.y);
+                    Debug.Log("Slope に侵入 → 坂上昇");
+                    state = Scene.UPRail;
+
+                    // 坂レールの角度を取得
+                    slopeAngle = other.transform.eulerAngles.z;
                 }
+                break;
 
+            case "loop Rail":
 
+                // 位置を初期位置へ戻す
+                transform.position = startPos;
+
+                // 速度リセット
+                RidSpeed = 5f;
+
+                // 坂角度リセット
+                slopeAngle = 0f;
+
+                // Change / Rail 接触カウンタをリセット
+                isChange = 0;
+                isHitBox = 0;
+
+                // 状態を Look に戻す（← ここで停止状態に戻す）
+                state = Scene.Move;
+
+                break;
         }
     }
 
@@ -245,6 +259,7 @@ public class TrolleyChoice : MonoBehaviour
                 //上に移動してMoveに切り替える
                 break;
 
+           
         }
     }
 

@@ -11,6 +11,8 @@ TagManager:
   - Lever1
   - Lever2
   - Lever
+  - loop Rail
+  - slope
   layers:
   - Default
   - TransparentFX
