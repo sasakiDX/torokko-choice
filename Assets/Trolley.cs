@@ -5,6 +5,7 @@ using System;
 
 using UnityEngine.InputSystem.Switch;
 using UnityEngine.SceneManagement;
+using UnityEngine.Experimental.GlobalIllumination;
 
 
 //トロッコ本体
@@ -16,9 +17,17 @@ public class TrolleyChoice : MonoBehaviour
 
     [Header("移動設定")]
     // public float moveDistance = 3f; // 上下の移動幅（1回の往復距離）
-    public float RidSpeed = 5f;     // 移動速度(たまに反映されないため要確認)
-    public float upSpeed = 5f;      // 上下移動速度
-    private float slopeAngle = 5f;// 坂レールの角度
+    public float RidSpeed = 10f;     // 移動速度(たまに反映されないため要確認)
+    public float upSpeed = 10f;      // 上下移動速度
+   // public float SlopeCount = 385f;//スロープにいる時間
+    public float EndSlope= 124;//スロープを出る位置
+    public float slopeAngle = 0.0f;// 坂レールの角度
+
+    public Vector3 slopeEndPos;//スロープ終了位置手動入力っぽい?
+    public float slopeExitRange = 0.1f; // 誤差許容
+
+    //X座標117.3398
+    //Y座標10.33702
 
     enum Scene
     {
@@ -44,6 +53,7 @@ public class TrolleyChoice : MonoBehaviour
     // private int direction = 1;      // 進む方向（右:1, 左:-1）
     private int isHitBox = 0;       // レール接触中のカウント
     private int isChange = 0;       // 分岐に接触中
+    private int nowslope = 0;       //
     //private bool isChange = false;
 
 
@@ -83,6 +93,7 @@ public class TrolleyChoice : MonoBehaviour
                 break;
 
             case Scene.Move:
+
                 transform.Translate(Vector2.right * RidSpeed * Time.deltaTime);//移動中
 
 
@@ -98,17 +109,29 @@ public class TrolleyChoice : MonoBehaviour
                 }
                 break;
 
+
+
             case Scene.UPRail:
 
-                //// 坂方向の単位ベクトルを計算
                 float rad = slopeAngle * Mathf.Deg2Rad;
                 Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;
 
-                //// 坂を滑らかに上る
                 transform.Translate(dir * upSpeed * Time.deltaTime);
 
-                break;
+                // ---- スロープ終了座標に到達したら通常レールへ戻す ----
+                if (Vector3.Distance(transform.position, slopeEndPos) <= slopeExitRange)
+                {
+                    upSpeed = 0.0f;
+                    slopeAngle = 0f;
+                    transform.rotation = Quaternion.identity;
 
+                    Debug.Log("スロープ終了座標に到達 → Move へ切り替え");
+
+                    state = Scene.Move;
+                    break;
+                }
+
+                break;
 
 
 
@@ -152,15 +175,18 @@ public class TrolleyChoice : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)//タグに触れたとき
     {
+       
         // Scene が MOVE のときだけ処理を行う
         if (state != Scene.Move)
             return;
-
+        Debug.Log("tagに触れた"+other.tag);
         // MOVE 状態のときのみ switch 文を実行
         switch (other.tag)
         {
             case "Rail":
                 isHitBox++; // 複数接触に対応
+                
+
                 //state = Scene.Move; // すでに MOVE なので不要
                 break;
 
@@ -185,7 +211,7 @@ public class TrolleyChoice : MonoBehaviour
                         isChange = 0;
                         
 
-                        RidSpeed = 5f;
+                        RidSpeed = 10f;
 
                         Choice = choiceResult; // 結果を保持
                         if (Choice == 0)
@@ -209,13 +235,16 @@ public class TrolleyChoice : MonoBehaviour
                 break;
 
             case "slope":
+               
+
                 if (Choice == 1)   // Choice1 のときだけ坂へ
                 {
+                    
                     Debug.Log("Slope に侵入 → 坂上昇");
-
+                    
                     // 坂レールの角度を取得
                     slopeAngle = other.transform.eulerAngles.z;
-
+                    
                     state = Scene.UPRail;
 
                    
@@ -228,7 +257,7 @@ public class TrolleyChoice : MonoBehaviour
                 transform.position = startPos;
 
                 // 速度リセット
-                RidSpeed = 5f;
+                RidSpeed = 10f;
 
                 // 坂角度リセット
                 slopeAngle = 0f;
