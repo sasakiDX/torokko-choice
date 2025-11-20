@@ -17,8 +17,8 @@ public class TrolleyChoice : MonoBehaviour
     [Header("移動設定")]
     // public float moveDistance = 3f; // 上下の移動幅（1回の往復距離）
     public float RidSpeed = 5f;     // 移動速度(たまに反映されないため要確認)
-    public float upSpeed = 50f;      // 上下移動速度
-    private float slopeAngle = 0f;// 坂レールの角度
+    public float upSpeed = 5f;      // 上下移動速度
+    private float slopeAngle = 5f;// 坂レールの角度
 
     enum Scene
     {
@@ -36,7 +36,7 @@ public class TrolleyChoice : MonoBehaviour
     [SerializeField] public QuestionData currentQuestion; // 問題データ
     [SerializeField] private Lever leverController;       // Lever 制御
     [SerializeField] public Lever currentLever;          // Lever データ
-    [SerializeField] public int Choice = 0;//仮の選択肢変数
+    [SerializeField] public int Choice = 0;             //仮の選択肢変数
 
    
 
@@ -45,6 +45,7 @@ public class TrolleyChoice : MonoBehaviour
     private int isHitBox = 0;       // レール接触中のカウント
     private int isChange = 0;       // 分岐に接触中
     //private bool isChange = false;
+
 
     private BoxCollider2D HitBox;   // 当たり判定
     [SerializeField] private Question questionRef;// Question参照
@@ -99,11 +100,11 @@ public class TrolleyChoice : MonoBehaviour
 
             case Scene.UPRail:
 
-                // 坂方向の単位ベクトルを計算
+                //// 坂方向の単位ベクトルを計算
                 float rad = slopeAngle * Mathf.Deg2Rad;
                 Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;
 
-                // 坂を滑らかに上る
+                //// 坂を滑らかに上る
                 transform.Translate(dir * upSpeed * Time.deltaTime);
 
                 break;
@@ -191,10 +192,6 @@ public class TrolleyChoice : MonoBehaviour
                         {
                             state = Scene.Move;   // 下のルート
                         }
-                        else if (Choice == 1)
-                        {
-                            state = Scene.UPRail; // 坂ルート
-                        }
 
 
 
@@ -211,14 +208,17 @@ public class TrolleyChoice : MonoBehaviour
 
                 break;
 
-            case "Slope":
+            case "slope":
                 if (Choice == 1)   // Choice1 のときだけ坂へ
                 {
                     Debug.Log("Slope に侵入 → 坂上昇");
-                    state = Scene.UPRail;
 
                     // 坂レールの角度を取得
                     slopeAngle = other.transform.eulerAngles.z;
+
+                    state = Scene.UPRail;
+
+                   
                 }
                 break;
 
