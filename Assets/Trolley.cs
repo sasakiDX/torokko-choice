@@ -208,8 +208,8 @@ public class TrolleyChoice : MonoBehaviour
                     {
                         Debug.Log("Question終了後、Moveに戻る");
 
+
                         isChange = 0;
-                        
 
                         RidSpeed = 10f;
 
@@ -223,7 +223,7 @@ public class TrolleyChoice : MonoBehaviour
 
                     });
 
-
+                    
 
                 }
                 else
