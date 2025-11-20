@@ -10,14 +10,15 @@ public class Change : MonoBehaviour
         Debug.Log($"{name} にプレイヤーが接触しました。問題を出します。");
 
 
-        var assigner = GetComponent<QuestionAssigner>();
+        var assigner = GetComponent<QuestionAssigner>();// 問題ID を取得
         if (assigner == null)
         {
             Debug.LogWarning($"{name} に QuestionAssigner が見つかりません。");
             return;
         }
 
-        var questionData = QuestionManager.Instance.GetQuestion(assigner.questionID);
+        //var evetnManager = EventManager.Instance.GetQuestion(assigner.questionID);
+        var questionData = QuestionManager.Instance.GetEvent(assigner.questionID);
         if (questionData == null)
         {
             Debug.LogError($"QuestionID {assigner.questionID} に対応する問題が存在しません。");
