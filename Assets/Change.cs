@@ -9,6 +9,7 @@ public class Change : MonoBehaviour
 
         Debug.Log($"{name} にプレイヤーが接触しました。問題を出します。");
 
+
         var assigner = GetComponent<QuestionAssigner>();
         if (assigner == null)
         {

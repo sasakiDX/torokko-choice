@@ -179,7 +179,7 @@ public class TrolleyChoice : MonoBehaviour
         // Scene が MOVE のときだけ処理を行う
         if (state != Scene.Move)
             return;
-        Debug.Log("tagに触れた"+other.tag);
+        //Debug.Log("tagに触れた"+other.tag);
         // MOVE 状態のときのみ switch 文を実行
         switch (other.tag)
         {
