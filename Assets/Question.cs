@@ -13,8 +13,8 @@ public class Question : MonoBehaviour
     public Button[] choiceButtons;
 
     private Action<int> onFinished;
-    private EventData currentEventData; // フィールド名を変更
-    //private QuestionData currentData; // こちらはそのまま
+    //private EventData currentEventData; // フィールド名を変更
+    private QuestionData currentData; // こちらはそのまま
 
     public int Choice = 0; // 仮の選択肢変数
 
@@ -60,11 +60,11 @@ public class Question : MonoBehaviour
         }
     }
 
-    public void StartQuestion(EventData data, Action<int> finishedCallback)
+    public void StartQuestion(QuestionData data, Action<int> finishedCallback)
     {
         Debug.Log("出題");
 
-        currentEventData = data; // 修正: フィールド名を変更
+        currentData = data; // 修正: フィールド名を変更
         onFinished = finishedCallback;
 
         Debug.Log($"Question 実行中: {data.questionText}");
@@ -96,7 +96,7 @@ public class Question : MonoBehaviour
     private void EndQuestion(int selected)
     {
         Debug.Log($"EndQuestion() 呼び出し開始。選択肢番号: {selected}");
-        if (currentEventData == null) // 修正: フィールド名を変更
+        if (currentData == null) // 修正: フィールド名を変更
         {
             Debug.LogError("currentEventData が設定されていません。");
             return;

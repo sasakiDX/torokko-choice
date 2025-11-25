@@ -42,9 +42,9 @@ public class TrolleyChoice : MonoBehaviour
     private Scene state = Scene.Look; // 現在の状態
 
     [SerializeField] private Question questionController; // Question UI制御
-    //[SerializeField] public QuestionData currentQuestion; // 問題データ
+    [SerializeField] public QuestionData currentQuestion; // 問題データ
     //[SerializeField] public Event questionController; // Question UI制御
-    [SerializeField] public EventData currentEvent;       // イベントデータ
+    //[SerializeField] public EventData currentEvent;       // イベントデータ
     [SerializeField] private Lever leverController;       // Lever 制御
     [SerializeField] public Lever currentLever;          // Lever データ
     [SerializeField] public int Choice = 0;             //仮の選択肢変数
@@ -198,15 +198,15 @@ public class TrolleyChoice : MonoBehaviour
                 Debug.Log("Changeに触れた");
 
                 GameManager.Instance.ChangePoint = other.gameObject; // 直前のChangeを記録
-                if (questionController != null && currentEvent != null)
+                if (questionController != null && currentQuestion != null)
                     leverController?.HandleLever(currentLever?.gameObject);// レバー操作
 
                 Debug.Log("Question開始");
-                if (questionController != null && currentEvent != null)// Question開始
+                if (questionController != null && currentQuestion != null)// Question開始
                 {
 
                     // Questionを開始
-                    questionController.StartQuestion(currentEvent, (choiceResult) =>
+                    questionController.StartQuestion(currentQuestion, (choiceResult) =>
                     {
                         Debug.Log("Question終了後、Moveに戻る");
 
