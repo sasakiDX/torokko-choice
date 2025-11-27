@@ -5,7 +5,8 @@ using System.IO;
 public class QuestionManager : MonoBehaviour
 {
     public static QuestionManager Instance;
-    public TextAsset csvFile; // インスペクタでCSVを指定
+    [Tooltip("問題データが含まれるCSVファイルを指定します")]
+    public TextAsset csvFile;
     private List<QuestionData> questions = new List<QuestionData>();
 
     void Awake()

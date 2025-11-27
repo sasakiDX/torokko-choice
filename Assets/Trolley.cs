@@ -19,8 +19,8 @@ public class TrolleyChoice : MonoBehaviour
     // public float moveDistance = 3f; // 上下の移動幅（1回の往復距離）
     public float RidSpeed = 10f;     // 移動速度(たまに反映されないため要確認)
     public float upSpeed = 10f;      // 上下移動速度
-   // public float SlopeCount = 385f;//スロープにいる時間
-    public float EndSlope= 124;//スロープを出る位置
+                                     // public float SlopeCount = 385f;//スロープにいる時間
+    public float EndSlope = 124;//スロープを出る位置
     public float slopeAngle = 0.0f;// 坂レールの角度
 
     public Vector3 slopeEndPos;//スロープ終了位置手動入力っぽい?
@@ -49,7 +49,7 @@ public class TrolleyChoice : MonoBehaviour
     [SerializeField] public Lever currentLever;          // Lever データ
     [SerializeField] public int Choice = 0;             //仮の選択肢変数
 
-   
+
 
     private Vector2 startPos;       // 初期位置
     // private int direction = 1;      // 進む方向（右:1, 左:-1）
@@ -177,7 +177,7 @@ public class TrolleyChoice : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)//タグに触れたとき
     {
-       
+
         // Scene が MOVE のときだけ処理を行う
         if (state != Scene.Move)
             return;
@@ -187,12 +187,12 @@ public class TrolleyChoice : MonoBehaviour
         {
             case "Rail":
                 isHitBox++; // 複数接触に対応
-                
+
 
                 //state = Scene.Move; // すでに MOVE なので不要
                 break;
 
-                
+
             case "Change":
                 isChange++;
                 Debug.Log("Changeに触れた");
@@ -225,7 +225,7 @@ public class TrolleyChoice : MonoBehaviour
 
                     });
 
-                    
+
 
                 }
                 else
@@ -237,19 +237,19 @@ public class TrolleyChoice : MonoBehaviour
                 break;
 
             case "slope":
-               
+
 
                 if (Choice == 1)   // Choice1 のときだけ坂へ
                 {
-                    
+
                     Debug.Log("Slope に侵入 → 坂上昇");
-                    
+
                     // 坂レールの角度を取得
                     slopeAngle = other.transform.eulerAngles.z;
-                    
+
                     state = Scene.UPRail;
 
-                   
+
                 }
                 break;
 
@@ -290,7 +290,7 @@ public class TrolleyChoice : MonoBehaviour
                 //上に移動してMoveに切り替える
                 break;
 
-           
+
         }
     }
 
