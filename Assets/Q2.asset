@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87764ada625bf224f8a4e04c3c3e92ea, type: 3}
-  m_Name: Q1
+  m_Name: Q2
   m_EditorClassIdentifier: 
-  id: 1
-  questionText: "\u516C\u5F0F"
+  id: 2
+  questionText: "\u9AD8\u6821\u751F"
   choices: []
   correctIndex: 0
