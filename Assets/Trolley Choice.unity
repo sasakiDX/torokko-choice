@@ -4222,9 +4222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ec9f33c417441468d1198169dac1df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questions:
-  - {fileID: 11400000, guid: 7fb51d6b9bc45ed4bb0ef7158585d8ad, type: 2}
-  - {fileID: 0}
+  csvFile: {fileID: 0}
 --- !u!4 &1421030002
 Transform:
   m_ObjectHideFlags: 0
@@ -4800,8 +4798,16 @@ MonoBehaviour:
   slopeEndPos: {x: 117.3398, y: 10.33702, z: 0}
   slopeExitRange: 0.1
   questionController: {fileID: 1522173225}
-  currentQuestion: {fileID: 0}
+  currentQuestion:
+    id: 0
+    questionText: 
+    choices: []
+    correctIndex: 0
+  leverController: {fileID: 0}
+  currentLever: {fileID: 0}
   Choice: 0
+  questionRef: {fileID: 0}
+  ChoicePointObject: {fileID: 0}
 --- !u!61 &1569311218
 BoxCollider2D:
   m_ObjectHideFlags: 0
