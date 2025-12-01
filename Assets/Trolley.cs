@@ -18,7 +18,7 @@ public class TrolleyChoice : MonoBehaviour
     public float EndSlope = 124;     // スロープを出る位置
     public float slopeAngle = 0.0f;  // 坂レールの角度
 
-    public Vector3 slopeEndPos;      // スロープ終了位置
+    public Vector2 slopeEndPos;      // スロープ終了位置
     public float slopeExitRange = 0.1f; // 誤差許容
 
     enum Scene
@@ -48,6 +48,7 @@ public class TrolleyChoice : MonoBehaviour
     void Start()
     {
         startPos = transform.position;
+
         HitBox = GetComponent<BoxCollider2D>();
 
         // questionController が未設定の場合はシーン内から検索
@@ -61,6 +62,21 @@ public class TrolleyChoice : MonoBehaviour
         {
             currentQuestion = QuestionManager.Instance.questions[0];
         }
+    }
+
+    void ResetActionParameters()
+    {
+        RidSpeed = 10f;
+        upSpeed = 10f;
+        slopeAngle = 0f;
+        isChange = 0;
+        isHitBox = 0;
+        state = Scene.Move;
+    }
+
+    void loopPoint(Vector2 newPos)
+    {
+        transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
     }
 
     void Update()
@@ -172,13 +188,21 @@ public class TrolleyChoice : MonoBehaviour
                 break;
 
             case "loop Rail":
-                transform.position = startPos;
-                RidSpeed = 10f;
-                slopeAngle = 0f;
-                isChange = 0;
-                isHitBox = 0;
-                state = Scene.Move;
+                loopPoint(new Vector2(startPos.x, -106.27f));//ループ先
+                slopeEndPos = new Vector2(115f, -88.15f);//ループ後坂終わり
+                //115
+                //-88
+                ResetActionParameters();
+                
                 break;
+            
+            case "loop Rail1":
+                loopPoint(new Vector2(startPos.x, -106.27f));
+                ResetActionParameters();
+
+                break;
+
+
         }
     }
 
