@@ -6,6 +6,8 @@ using UnityEditor;
 #endif
 using UnityEngine.SceneManagement;
 
+
+
 // トロッコ本体
 public class TrolleyChoice : MonoBehaviour
 {
