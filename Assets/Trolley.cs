@@ -196,6 +196,7 @@ public class TrolleyChoice : MonoBehaviour
                 //-88
                 ResetActionParameters();
                 
+
                 break;
             
             case "loop Rail1":
