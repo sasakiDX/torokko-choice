@@ -201,6 +201,7 @@ public class TrolleyChoice : MonoBehaviour
             
             case "loop Rail1":
                 loopPoint(new Vector2(startPos.x, -106.27f));
+
                 ResetActionParameters();
 
                 break;
