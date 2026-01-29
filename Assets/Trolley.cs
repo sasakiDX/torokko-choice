@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using UnityEngine.UI;
 using System;
 #if UNITY_EDITOR
@@ -6,7 +7,17 @@ using UnityEditor;
 #endif
 using UnityEngine.SceneManagement;
 
-// トロッコ本体
+
+
+//やることまとめ
+//初期状態を保存する
+//出題レールの値をランダム化する⇒ランダムな問題が出るようにする
+//UIの表示
+//シーン切り替えの作成⇒いったんカメラ座標を合わせる方向
+//
+
+
+
 public class TrolleyChoice : MonoBehaviour
 {
     private GameObject lastChangeObject = null;
@@ -135,6 +146,7 @@ public class TrolleyChoice : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+
         if (state != Scene.Move)
             return;
 
@@ -188,19 +200,32 @@ public class TrolleyChoice : MonoBehaviour
                 break;
 
             case "loop Rail":
-                loopPoint(new Vector2(startPos.x, -106.27f));//ループ先
+                //loopPoint(new Vector2(startPos.x, startPos.y));//ループ先
                 slopeEndPos = new Vector2(115f, -88.15f);//ループ後坂終わり
-                //115
-                //-88
-                ResetActionParameters();
-                
-                break;
-            
-            case "loop Rail1":
-                loopPoint(new Vector2(startPos.x, -106.27f));
-                ResetActionParameters();
+                                                         //115
+                                                         //-88
+
+
+                // ★ ここでスコアによる判定を挟む（閾値以上なら再読み込みしない）
+                if (RunData.Instance != null &&
+                    RunData.Instance.score >= RunData.Instance.disableLoopAtScore)
+                {
+                    Debug.Log("[Loop] スコア閾値到達のため、シーン再読み込みをスキップします。");
+                    break; // ← 再読み込みせず抜ける（以降の処理は行わない）
+                }
+
+                // ★ 多重発火対策（任意）
+               
+
+                // ポーズ解除（必要に応じて）
+                if (Time.timeScale == 0f) Time.timeScale = 1f;
+
+                // 既存：シーン自体を再読み込み
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
                 break;
+
+
 
 
         }
