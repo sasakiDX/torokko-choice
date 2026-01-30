@@ -265,7 +265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: Time
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -622,6 +622,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 7219082850287411630}
     m_Modifications:
     - target: {fileID: 1099781630106690161, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
+      propertyPath: m_text
+      value: A
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099781630106690161, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -713,6 +717,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuestionText
       objectReference: {fileID: 0}
+    - target: {fileID: 4649134298782669256, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
+      propertyPath: m_Name
+      value: TAanswer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713753460714493086, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
+      propertyPath: m_text
+      value: B
+      objectReference: {fileID: 0}
     - target: {fileID: 4713753460714493086, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -721,6 +733,14 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 6429343301229251352, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
+      propertyPath: m_Name
+      value: TQuestion
+      objectReference: {fileID: 0}
+    - target: {fileID: 6571560052354259033, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
+      propertyPath: m_text
+      value: Question
+      objectReference: {fileID: 0}
     - target: {fileID: 6571560052354259033, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -729,6 +749,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 9050620930728480469, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
+      propertyPath: m_Name
+      value: TBanswer
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
