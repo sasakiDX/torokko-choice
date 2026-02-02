@@ -176,7 +176,7 @@ public class TrolleyChoice : MonoBehaviour
                         RidSpeed = 10f;
 
                         Choice = choiceResult; // 結果を保持
-                        if (Choice == 0)
+                        if (Choice == 1)
                         {
                             state = Scene.Move;   // 下のルート
                         }
@@ -192,7 +192,7 @@ public class TrolleyChoice : MonoBehaviour
 
 
             case "slope":
-                if (Choice == 1)
+                if (Choice == 2)
                 {
                     slopeAngle = other.transform.eulerAngles.z;
                     state = Scene.UPRail;
@@ -235,10 +235,10 @@ public class TrolleyChoice : MonoBehaviour
     {
         switch (choice)
         {
-            case 0:
+            case 1:
                 state = Scene.Move;
                 break;
-            case 1:
+            case 2:
                 // Choice 1 の処理（必要に応じて坂など）
                 break;
         }

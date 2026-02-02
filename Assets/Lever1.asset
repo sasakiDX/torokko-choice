@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87764ada625bf224f8a4e04c3c3e92ea, type: 3}
-  m_Name: Q2
+  m_Script: {fileID: 11500000, guid: b4a23cbe54efaf24e97c4b4d5b9ac611, type: 3}
+  m_Name: Lever1
   m_EditorClassIdentifier: 
-  id: 2
-  questionText: Q2
+  id: 1
+  LeverText: Yes
   choices: []
   correctIndex: 0
-  scoreWhenChoose0: 100
-  scoreWhenChoose1: 50

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Q1
   m_EditorClassIdentifier: 
   id: 1
-  questionText: "\u516C\u5F0F"
+  questionText: Q1
   choices: []
   correctIndex: 0
+  scoreWhenChoose0: 100
+  scoreWhenChoose1: 50

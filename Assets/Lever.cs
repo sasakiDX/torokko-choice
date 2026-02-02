@@ -12,6 +12,7 @@ public class Lever : MonoBehaviour
 
     // Question に通知するイベント
     public static event Action<string> OnLeverClicked;
+    public static event Action<GameObject> OnLeverClickedGO; // 追加
 
     private bool isClicked = false; // クリックされたかどうか
 
@@ -64,6 +65,7 @@ public class Lever : MonoBehaviour
 
         // --- Questionに通知 ---
         OnLeverClicked?.Invoke(lever.name);
+        OnLeverClickedGO?.Invoke(lever);    // 追加：GO直渡し
 
     }
 

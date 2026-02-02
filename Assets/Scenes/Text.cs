@@ -29,6 +29,7 @@ public class ShowQuestionOnTouch2D_TMP : MonoBehaviour
         if (targetTMP != null) targetTMP.text = string.Empty;
     }
 
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag(playerTag)) return;
@@ -47,6 +48,9 @@ public class ShowQuestionOnTouch2D_TMP : MonoBehaviour
             Debug.LogError($"[{nameof(ShowQuestionOnTouch2D_TMP)}] ID {_assigner.questionID} の QuestionData が見つかりません。");
             return;
         }
+
+
+
 
         if (targetTMP != null)
         {

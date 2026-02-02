@@ -44,13 +44,13 @@ public class Question : MonoBehaviour
             switch (lastLeverName)
             {
                 case "Lever1":
-                    Choice = 0;
+                    Choice = 1;
                     Debug.Log("プレイヤーがAを回答しました！");
                     EndQuestion(Choice);
                     break;
 
                 case "Lever2":
-                    Choice = 1;
+                    Choice = 2;
                     Debug.Log("プレイヤーがBを回答しました！");
                     EndQuestion(Choice);
                     break;
