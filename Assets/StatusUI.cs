@@ -24,7 +24,6 @@ public class StatusUI : MonoBehaviour
 
     float age = 1;
     int job;
-    int name;
 
     // ƒ‰ƒ“ƒN
     string[] ranks = { "F", "E", "D", "C", "B", "A", "S" };
