@@ -103,22 +103,35 @@ public class Question : MonoBehaviour
 
         // ★ ここで「選択肢に応じたスコア」を加算
         int delta = 0;
-        if (selected == 0)
+        if (selected == 1)
         {
-            delta = currentData.scoreWhenChoose0;   // Lever1
+            delta = currentData.scoreWhenChoose1;   // Lever1
             Debug.Log($"選択肢0が選ばれたので、スコアを {delta} 増加させます。");
+            delta = currentData.moneyReward;
+            delta = currentData.iqReward;
+            delta = currentData.staminaReward;
+            delta = currentData.senseReward;
+
         }
-        else if (selected == 1)
+        else if (selected == 2)
         {
-            delta = currentData.scoreWhenChoose1;   // Lever2
+            delta = currentData.scoreWhenChoose2;   // Lever2
             Debug.Log($"選択肢1が選ばれたので、スコアを {delta} 増加させます。");
+            delta = currentData.moneyReward;
+            delta = currentData.iqReward;
+            delta = currentData.staminaReward;
+            delta = currentData.senseReward;
         }
 
         // ★ 実スコア加算（RunData に累積 / 閾値到達で loopDisabled を自動ON）
         if (RunData.Instance != null)
         {
-            RunData.Instance.AddScore(delta);
-            Debug.Log($"Score +{delta} → 合計 {RunData.Instance.score}");
+            RunData.Instance.score += delta;
+            RunData.Instance.moneyReward += delta;
+            RunData.Instance.iqReward += delta;
+            RunData.Instance.staminaReward += delta;
+            RunData.Instance.senseReward += delta;
+
         }
         else
         {

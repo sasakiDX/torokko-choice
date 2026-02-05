@@ -1,12 +1,19 @@
 ﻿// Assets/Scripts/System/RunData.cs
 using UnityEngine;
 
+
 public class RunData : MonoBehaviour
 {
     public static RunData Instance { get; private set; }
 
     [Header("周回しても引き継ぎたいデータ")]
     public int score = 0;
+    public int moneyReward = 0;
+    public int iqReward = 0;
+    public int staminaReward = 0;
+    public int senseReward = 0;
+
+
 
     [Header("loop 無効化設定")]
     [Tooltip("このスコア以上になったらループを無効化してリザルトへ進める")]

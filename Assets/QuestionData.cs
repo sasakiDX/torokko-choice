@@ -17,8 +17,20 @@ public class QuestionData : ScriptableObject
 
     [Header("スコア設定（選択肢ごと）")]
     [Tooltip("choices[0]（レバー1）を選んだ場合に加算するスコア")]
-    public int scoreWhenChoose0 = 100;
+    public int scoreWhenChoose1 = 100;
 
     [Tooltip("choices[1]（レバー2）を選んだ場合に加算するスコア")]
-    public int scoreWhenChoose1 = 50;
+    public int scoreWhenChoose2 = 50;
+
+    [Tooltip("Moneyの獲得量")]
+    public int moneyReward = 0;
+    
+    [Tooltip("IQの獲得量")]
+    public int iqReward = 0;
+    
+    [Tooltip("Staminaの獲得量")]
+    public int staminaReward = 0;
+    
+    [Tooltip("Senseの獲得量")]
+    public int senseReward = 0;
 }

@@ -357,8 +357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a8bd6a50695520469ba2dacfb99d1dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blueLever: {fileID: -4530494680423092948, guid: db0994044c11c2940ab1efcccdad63da, type: 3}
-  redLever: {fileID: -2157656500648941810, guid: 7b30e4083b9c9774798b2e33f48338dd, type: 3}
 --- !u!114 &720474927 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3855183782407114417, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
@@ -700,7 +698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2487389295834463807, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.04175
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 2487389295834463807, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -721,6 +719,10 @@ PrefabInstance:
     - target: {fileID: 3016783082247373807, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_margin.z
       value: -0.6321716
+      objectReference: {fileID: 0}
+    - target: {fileID: 3143575961150006730, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: m_text
+      value: Sense
       objectReference: {fileID: 0}
     - target: {fileID: 3362441495397523277, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_SizeDelta.x
@@ -753,6 +755,10 @@ PrefabInstance:
     - target: {fileID: 3698680728767836674, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.23986
+      objectReference: {fileID: 0}
+    - target: {fileID: 3868690972277390161, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: m_text
+      value: Status
       objectReference: {fileID: 0}
     - target: {fileID: 4022728432147234423, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_Sprite
@@ -798,6 +804,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5737339496503448309, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: m_Name
+      value: Timer
+      objectReference: {fileID: 0}
     - target: {fileID: 5797894535985646225, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_VerticalAlignment
       value: 512
@@ -809,6 +819,14 @@ PrefabInstance:
     - target: {fileID: 5950576112054299606, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_Name
       value: 'Slider_Money '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153920031058541182, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: choiceAText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153920031058541182, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: choiceBText
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6329083878038094043, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -838,9 +856,13 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.21755
       objectReference: {fileID: 0}
+    - target: {fileID: 6356638920355894426, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: m_text
+      value: Stamina
+      objectReference: {fileID: 0}
     - target: {fileID: 6676512958594461848, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_text
-      value: "\u6240\u6301\u91D1\uFF1A0\u5186"
+      value: Money
       objectReference: {fileID: 0}
     - target: {fileID: 6951664034535824773, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_SizeDelta.x
@@ -857,6 +879,10 @@ PrefabInstance:
     - target: {fileID: 6951664034535824773, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.00000010431
+      objectReference: {fileID: 0}
+    - target: {fileID: 6983709357201582634, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: m_text
+      value: IQ
       objectReference: {fileID: 0}
     - target: {fileID: 6988143291046380043, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_SizeDelta.x

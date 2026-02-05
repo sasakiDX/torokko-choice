@@ -95,12 +95,10 @@ public class TrolleyChoice : MonoBehaviour
         switch (state)
         {
             case Scene.Start:
-                if (Input.GetKeyDown(KeyCode.RightArrow))
-                    state = Scene.Look;
+                    state = Scene.Move;
                 break;
 
             case Scene.Look:
-                if (Input.GetKeyDown(KeyCode.RightArrow))
                     state = Scene.Move;
                 break;
 
