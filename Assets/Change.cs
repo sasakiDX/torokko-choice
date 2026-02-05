@@ -31,12 +31,12 @@ public class Change : MonoBehaviour
             return;
         }
 
-        question.StartQuestion(questionData, choice =>
-        {
-            Debug.Log($"{name} の問題が終了しました。選択肢番号: {choice}");
-        });
+        //question.StartQuestion(questionData, choice =>
+        //{
+        //    Debug.Log($"{name} の問題が終了しました。選択肢番号: {choice}");
+        //});
 
-        if (GameManager.Instance != null)
-            GameManager.Instance.ChangePoint = gameObject;
+        //if (GameManager.Instance != null)
+        //    GameManager.Instance.ChangePoint = gameObject;
     }
 }

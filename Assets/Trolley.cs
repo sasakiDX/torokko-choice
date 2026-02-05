@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
 #if UNITY_EDITOR
@@ -7,16 +6,11 @@ using UnityEditor;
 #endif
 using UnityEngine.SceneManagement;
 
-
-
-//やることまとめ
-//初期状態を保存する
-//出題レールの値をランダム化する⇒ランダムな問題が出るようにする
-//UIの表示
-//シーン切り替えの作成⇒いったんカメラ座標を合わせる方向
-//
-
-
+// やることまとめ（元コメントを残します）
+// 初期状態を保存する
+// 出題レールの値をランダム化する⇒ランダムな問題が出るようにする
+// UIの表示
+// シーン切り替えの作成⇒いったんカメラ座標を合わせる方向
 
 public class TrolleyChoice : MonoBehaviour
 {
@@ -29,7 +23,7 @@ public class TrolleyChoice : MonoBehaviour
     public float EndSlope = 124;     // スロープを出る位置
     public float slopeAngle = 0.0f;  // 坂レールの角度
 
-    public Vector2 slopeEndPos;      // スロープ終了位置
+    public Vector2 slopeEndPos;         // スロープ終了位置
     public float slopeExitRange = 0.1f; // 誤差許容
 
     enum Scene
@@ -43,10 +37,10 @@ public class TrolleyChoice : MonoBehaviour
     private Scene state = Scene.Look;
 
     [SerializeField] private Question questionController; // Question UI制御
-    [SerializeField] public QuestionData currentQuestion; // 問題データ
+    [SerializeField] public QuestionData currentQuestion; // 問題データ（互換のため残すが使用しない）
     [SerializeField] private Lever leverController;       // Lever 制御
-    [SerializeField] public Lever currentLever;          // Lever データ
-    [SerializeField] public int Choice = 0;              // 仮の選択肢変数
+    [SerializeField] public Lever currentLever;           // Lever データ
+    [SerializeField] public int Choice = 0;               // 仮の選択肢変数（1/2仕様を維持）
 
     private Vector2 startPos;       // 初期位置
     private int isHitBox = 0;       // レール接触中のカウント
@@ -55,6 +49,9 @@ public class TrolleyChoice : MonoBehaviour
     private BoxCollider2D HitBox;   // 当たり判定
     public GameObject ChoicePointObject;  // Lever がアタッチされたオブジェクト
     private Lever lever;                  // Lever コンポーネント
+
+    // ★（任意）二重出題ガード：OnTriggerEnter2D が連続発火する環境での二重StartQuestion対策
+    private bool asking = false;
 
     void Start()
     {
@@ -68,11 +65,11 @@ public class TrolleyChoice : MonoBehaviour
             questionController = FindObjectOfType<Question>();
         }
 
-        // currentQuestion が未設定の場合は QuestionManager から1問目を自動設定
-        if (currentQuestion == null && QuestionManager.Instance != null && QuestionManager.Instance.questions.Count > 0)
-        {
-            currentQuestion = QuestionManager.Instance.questions[0];
-        }
+        // ★ CHANGED: 「最初の1問を固定」する処理は削除
+        // if (currentQuestion == null && QuestionManager.Instance != null && QuestionManager.Instance.questions.Count > 0)
+        // {
+        //     currentQuestion = QuestionManager.Instance.questions[0];
+        // }
     }
 
     void ResetActionParameters()
@@ -95,15 +92,14 @@ public class TrolleyChoice : MonoBehaviour
         switch (state)
         {
             case Scene.Start:
-                    state = Scene.Move;
+                state = Scene.Move;
                 break;
 
             case Scene.Look:
-                    state = Scene.Move;
+                state = Scene.Move;
                 break;
 
             case Scene.Move:
-
                 transform.Translate(Vector2.right * RidSpeed * Time.deltaTime);
 
                 if (isChange > 0)
@@ -119,7 +115,6 @@ public class TrolleyChoice : MonoBehaviour
                 break;
 
             case Scene.UPRail:
-
                 float rad = slopeAngle * Mathf.Deg2Rad;
                 Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;
 
@@ -137,14 +132,12 @@ public class TrolleyChoice : MonoBehaviour
                     state = Scene.Move;
                     break;
                 }
-
                 break;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-
         if (state != Scene.Move)
             return;
 
@@ -160,37 +153,116 @@ public class TrolleyChoice : MonoBehaviour
 
                 GameManager.Instance.ChangePoint = other.gameObject;
 
-                if (questionController != null && currentQuestion != null)
+                // ★ CHANGED: 毎回、その Change レールから QuestionData を取り直す
+                if (questionController == null)
                 {
-                    questionController.StartQuestion(currentQuestion, (choiceResult) =>
+                    Debug.LogError("questionController が設定されていません");
+                    break;
+                }
+
+                // （任意）二重出題ガード
+                if (asking)
+                {
+                    Debug.LogWarning("StartQuestion を二重に呼ぶのを抑止しました（asking==true）");
+                    break;
+                }
+                asking = true; // 出題開始
+
+                // 1) Change に付与された QuestionAssigner を取得
+
+                //ランダムの場合コメント
+
+
+                var assigner = other.GetComponent<QuestionAssigner>();
+                if (assigner == null)
+                {
+                    Debug.LogError("この Change に QuestionAssigner が付いていません。");
+                    asking = false;
+                    break;
+                }
+
+                //
+
+                // 2) QuestionManager から QuestionData を取得
+
+
+                //ランダムの場合コメント
+                var qm = QuestionManager.Instance;
+                if (qm == null)
+                {
+                    Debug.LogError("QuestionManager.Instance が見つかりません。");
+                    asking = false;
+                    break;
+                }
+
+                var data = qm.GetQuestion(assigner.questionID);
+                if (data == null)
+                {
+                    Debug.LogError($"Question ID {assigner.questionID} の QuestionData が見つかりません。");
+                    asking = false;
+                    break;
+                }
+
+
+                //
+
+
+
+                /*                //ランダム選択の場合
+                var qm = QuestionManager.Instance;
+                if (qm == null || qm.questions == null || qm.questions.Count == 0)
+                {
+                    Debug.LogError("QuestionManager に問題がありません");
+
+                    asking = false;
+
+                    break;
+
+                }
+
+                int r = UnityEngine.Random.Range(0, qm.questions.Count); // 0..Count-1
+                var data = qm.questions[r];
+                if (data == null)
+                {
+                    Debug.LogError("ランダム選択した QuestionData が null です");
+                    asking = false;
+                    break;
+                }
+
+                */
+
+
+
+
+
+
+
+
+                Debug.Log($"[StartQuestion] id={data.id}, text={data.questionText}");
+
+                // 3) 取得した data をそのまま渡して出題
+                questionController.StartQuestion(data, (choiceResult) =>
+                {
+                    Choice = choiceResult; // ← 既存仕様の 1/2 を維持
+                    Debug.Log("TrolleyChoice で受け取った Choice: " + Choice);
+                    Debug.Log("Question終了後、Moveに戻る");
+
+                    // 速度など復帰
+                    isChange = 0;
+                    RidSpeed = 10f;
+
+                    if (Choice == 1)
                     {
-                        Choice = choiceResult;
-                        Debug.Log("TrolleyChoice で受け取った Choice: " + Choice);
-                        Debug.Log("Question終了後、Moveに戻る");
+                        state = Scene.Move; // 下のルート（既存仕様）
+                    }
 
-                        //速度が戻った
-                        isChange = 0;
-
-                        RidSpeed = 10f;
-
-                        Choice = choiceResult; // 結果を保持
-                        if (Choice == 1)
-                        {
-                            state = Scene.Move;   // 下のルート
-                        }
-
-                        isChange = 0;
-                    });
-                }
-                else
-                {
-                    Debug.LogError("questionController または currentQuestion が設定されていません");
-                }
+                    // 出題完了
+                    asking = false;
+                });
                 break;
 
-
             case "slope":
-                if (Choice == 2)
+                if (Choice == 2) // 既存仕様（2 で上ルート）
                 {
                     slopeAngle = other.transform.eulerAngles.z;
                     state = Scene.UPRail;
@@ -200,9 +272,6 @@ public class TrolleyChoice : MonoBehaviour
             case "loop Rail":
                 //loopPoint(new Vector2(startPos.x, startPos.y));//ループ先
                 slopeEndPos = new Vector2(115f, -88.15f);//ループ後坂終わり
-                                                         //115
-                                                         //-88
-
 
                 // ★ ここでスコアによる判定を挟む（閾値以上なら再読み込みしない）
                 if (RunData.Instance != null &&
@@ -212,20 +281,12 @@ public class TrolleyChoice : MonoBehaviour
                     break; // ← 再読み込みせず抜ける（以降の処理は行わない）
                 }
 
-                // ★ 多重発火対策（任意）
-               
-
                 // ポーズ解除（必要に応じて）
                 if (Time.timeScale == 0f) Time.timeScale = 1f;
 
                 // 既存：シーン自体を再読み込み
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
                 break;
-
-
-
-
         }
     }
 
@@ -237,7 +298,7 @@ public class TrolleyChoice : MonoBehaviour
                 state = Scene.Move;
                 break;
             case 2:
-                // Choice 1 の処理（必要に応じて坂など）
+                // Choice 2 の処理（必要に応じて坂など）
                 break;
         }
     }

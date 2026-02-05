@@ -16,5 +16,13 @@ MonoBehaviour:
   questionText: Q2
   choices: []
   correctIndex: 0
-  scoreWhenChoose0: 100
-  scoreWhenChoose1: 50
+  scoreWhenChoose1: 100
+  moneyReward1: 200
+  iqReward1: 0
+  staminaReward1: 0
+  senseReward1: 0
+  scoreWhenChoose2: 0
+  moneyReward2: 0
+  iqReward2: 0
+  staminaReward2: 0
+  senseReward2: 0

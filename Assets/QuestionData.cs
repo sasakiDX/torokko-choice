@@ -19,18 +19,36 @@ public class QuestionData : ScriptableObject
     [Tooltip("choices[0]（レバー1）を選んだ場合に加算するスコア")]
     public int scoreWhenChoose1 = 100;
 
+    [Tooltip("Moneyの獲得量")]
+    public int moneyReward1 = 0;
+    
+    [Tooltip("IQの獲得量")]
+    public int iqReward1 = 0;
+
+    [Tooltip("Staminaの獲得量")]
+    public int staminaReward1 = 0;
+
+    [Tooltip("Senseの獲得量")]
+    public int senseReward1 = 0;
+
+
     [Tooltip("choices[1]（レバー2）を選んだ場合に加算するスコア")]
     public int scoreWhenChoose2 = 50;
 
     [Tooltip("Moneyの獲得量")]
-    public int moneyReward = 0;
-    
+    public int moneyReward2 = 0;
+
+  
     [Tooltip("IQの獲得量")]
-    public int iqReward = 0;
-    
+    public int iqReward2 = 0;
+
+  
     [Tooltip("Staminaの獲得量")]
-    public int staminaReward = 0;
-    
+    public int staminaReward2 = 0;
+
+   
     [Tooltip("Senseの獲得量")]
-    public int senseReward = 0;
+    public int senseReward2 = 0;
+
+
 }
