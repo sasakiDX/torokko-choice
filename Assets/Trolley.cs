@@ -50,7 +50,7 @@ public class TrolleyChoice : MonoBehaviour
     public GameObject ChoicePointObject;  // Lever がアタッチされたオブジェクト
     private Lever lever;                  // Lever コンポーネント
 
-    // ★（任意）二重出題ガード：OnTriggerEnter2D が連続発火する環境での二重StartQuestion対策
+    // （任意）二重出題ガード：OnTriggerEnter2D が連続発火する環境での二重StartQuestion対策
     private bool asking = false;
 
     void Start()
@@ -65,7 +65,7 @@ public class TrolleyChoice : MonoBehaviour
             questionController = FindObjectOfType<Question>();
         }
 
-        // ★ CHANGED: 「最初の1問を固定」する処理は削除
+        // CHANGED: 「最初の1問を固定」する処理は削除
         // if (currentQuestion == null && QuestionManager.Instance != null && QuestionManager.Instance.questions.Count > 0)
         // {
         //     currentQuestion = QuestionManager.Instance.questions[0];
@@ -153,7 +153,7 @@ public class TrolleyChoice : MonoBehaviour
 
                 GameManager.Instance.ChangePoint = other.gameObject;
 
-                // ★ CHANGED: 毎回、その Change レールから QuestionData を取り直す
+                //CHANGED: 毎回、その Change レールから QuestionData を取り直す
                 if (questionController == null)
                 {
                     Debug.LogError("questionController が設定されていません");
@@ -273,7 +273,7 @@ public class TrolleyChoice : MonoBehaviour
                 //loopPoint(new Vector2(startPos.x, startPos.y));//ループ先
                 slopeEndPos = new Vector2(115f, -88.15f);//ループ後坂終わり
 
-                // ★ ここでスコアによる判定を挟む（閾値以上なら再読み込みしない）
+                // ここでスコアによる判定を挟む（閾値以上なら再読み込みしない）
                 if (RunData.Instance != null &&
                     RunData.Instance.score >= RunData.Instance.disableLoopAtScore)
                 {

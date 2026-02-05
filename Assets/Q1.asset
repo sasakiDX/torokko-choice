@@ -17,10 +17,10 @@ MonoBehaviour:
   choices: []
   correctIndex: 0
   scoreWhenChoose1: 150
-  moneyReward1: 100
-  iqReward1: 0
-  staminaReward1: 0
-  senseReward1: 0
+  moneyReward1: 1000
+  iqReward1: 20
+  staminaReward1: 25
+  senseReward1: 15
   scoreWhenChoose2: 0
   moneyReward2: 0
   iqReward2: 0
