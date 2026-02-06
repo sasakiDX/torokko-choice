@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &74909375 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5502243876190695874, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+  m_PrefabInstance: {fileID: 1323237767195805778}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &134192940
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,17 +307,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1574865032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &408009494 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4133092063731639095, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
-  m_PrefabInstance: {fileID: 1323237767195805778}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &574923009 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6356638920355894426, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
@@ -511,8 +511,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionText: {fileID: 1901641178}
-  choiceAText: {fileID: 1597524750}
-  choiceBText: {fileID: 408009494}
+  choiceAText: {fileID: 0}
+  choiceBText: {fileID: 0}
   decideButton: {fileID: 656641177}
 --- !u!224 &1574865032 stripped
 RectTransform:
@@ -539,17 +539,6 @@ MonoBehaviour:
   intelRankText: {fileID: 738168422}
   senseRankText: {fileID: 1655769597}
   staminaRankText: {fileID: 574923009}
---- !u!114 &1597524750 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8606969368113337816, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
-  m_PrefabInstance: {fileID: 1323237767195805778}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1655769597 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3143575961150006730, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
@@ -639,6 +628,18 @@ PrefabInstance:
     - target: {fileID: 738455602448566776, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 955270173046967306, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: choiceAText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 955270173046967306, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: choiceBText
+      value: 
+      objectReference: {fileID: 1323237767195805779}
+    - target: {fileID: 955270173046967306, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: questionText
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1118314629344650197, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_margin.w
@@ -796,6 +797,18 @@ PrefabInstance:
       propertyPath: timerButton
       value: 
       objectReference: {fileID: 656641177}
+    - target: {fileID: 5666393860798265307, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: choiceAText
+      value: 
+      objectReference: {fileID: 74909375}
+    - target: {fileID: 5666393860798265307, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: choiceBText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5666393860798265307, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: questionText
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5676168935817870340, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -823,11 +836,15 @@ PrefabInstance:
     - target: {fileID: 6153920031058541182, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: choiceAText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 74909375}
     - target: {fileID: 6153920031058541182, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: choiceBText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1323237767195805779}
+    - target: {fileID: 6153920031058541182, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: questionText
+      value: 
+      objectReference: {fileID: 1901641178}
     - target: {fileID: 6329083878038094043, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
@@ -1084,6 +1101,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 656641180}
   m_SourcePrefab: {fileID: 100100000, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+--- !u!114 &1323237767195805779 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3537338827257619687, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+  m_PrefabInstance: {fileID: 1323237767195805778}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SocialPlatforms.Impl;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -273,11 +275,30 @@ public class TrolleyChoice : MonoBehaviour
                 //loopPoint(new Vector2(startPos.x, startPos.y));//ループ先
                 slopeEndPos = new Vector2(115f, -88.15f);//ループ後坂終わり
 
+                //switch文に直す 仮置き
                 // ここでスコアによる判定を挟む（閾値以上なら再読み込みしない）
-                if (RunData.Instance != null &&
-                    RunData.Instance.score >= RunData.Instance.disableLoopAtScore)
+                if 
+                (
+                    RunData.Instance != null &&
+                    RunData.Instance.score >= RunData.Instance.disableLoopAtScore
+                    || 
+                    RunData.Instance != null &&
+                    RunData.Instance.moneyReward >= RunData.Instance.disableLoopAtMoney
+                    ||
+                    RunData.Instance != null &&
+                    RunData.Instance.iqReward >= RunData.Instance.disableLoopAtIQ
+                    ||
+                    RunData.Instance != null &&
+                    RunData.Instance.staminaReward >= RunData.Instance.disableLoopAtStamina
+                    ||
+                    RunData.Instance != null &&
+                    RunData.Instance.senseReward >= RunData.Instance.disableLoopAtSense
+                )
+
                 {
+
                     Debug.Log("[Loop] スコア閾値到達のため、シーン再読み込みをスキップします。");
+
                     break; // ← 再読み込みせず抜ける（以降の処理は行わない）
                 }
 

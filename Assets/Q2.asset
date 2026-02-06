@@ -17,7 +17,7 @@ MonoBehaviour:
   choices: []
   correctIndex: 0
   scoreWhenChoose1: 100
-  moneyReward1: 200
+  moneyReward1: 1500
   iqReward1: 0
   staminaReward1: 0
   senseReward1: 0

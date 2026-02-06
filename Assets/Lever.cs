@@ -39,7 +39,7 @@ public class Lever : MonoBehaviour
                 GameObject lever = hit.collider.gameObject;
                 Debug.Log("Lever clicked: " + lever.name);
 
-                HandleLever(lever);
+                HandleLever(lever);// レバー処理
 
 
                 // 処理後にクリックフラグをリセット

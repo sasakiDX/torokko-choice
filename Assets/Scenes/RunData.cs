@@ -17,6 +17,11 @@ public class RunData : MonoBehaviour
     [Header("loop 無効化設定")]
     [Tooltip("このスコア以上になったらループを無効化してリザルトへ進める")]
     public int disableLoopAtScore = 500;
+    public int disableLoopAtMoney = 1000;
+    public int disableLoopAtIQ = 300;
+    public int disableLoopAtStamina = 50;
+    public int disableLoopAtSense = 200;
+
     [Tooltip("true になったら loop をやめる")]
     public bool loopDisabled = false;
 
@@ -53,21 +58,41 @@ public class RunData : MonoBehaviour
     public void AddMoney(int moneyDelta)
     {
         moneyReward += moneyDelta;
+        if (!loopDisabled && moneyReward >= disableLoopAtMoney)
+        {
+            loopDisabled = true;
+            Debug.Log($"[RunData] 目標スコア {disableLoopAtMoney} 到達。以後 loop を無効化します。");
+        }
     }
 
     public void AddIQ(int iqDelta)
     {
         iqReward += iqDelta;
+        if (!loopDisabled && iqReward >= disableLoopAtIQ)
+        {
+            loopDisabled = true;
+            Debug.Log($"[RunData] 目標スコア {disableLoopAtIQ} 到達。以後 loop を無効化します。");
+        }
     }
 
     public void AddStamina(int staminaDelta)
     {
         staminaReward += staminaDelta;
+        if (!loopDisabled && staminaReward >= disableLoopAtStamina)
+        {
+            loopDisabled = true;
+            Debug.Log($"[RunData] 目標スコア {disableLoopAtStamina} 到達。以後 loop を無効化します。");
+        }
     }
 
     public void AddSense(int senseDelta)
     {
         senseReward += senseDelta;
+        if (!loopDisabled && senseReward >= disableLoopAtSense)
+        {
+            loopDisabled = true;
+            Debug.Log($"[RunData] 目標スコア {disableLoopAtSense} 到達。以後 loop を無効化します。");
+        }
     }
 
 }

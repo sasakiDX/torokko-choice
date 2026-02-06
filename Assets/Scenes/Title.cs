@@ -5,7 +5,7 @@ using System.Collections;
 public class SpaceKey_SwitchSceneAsync : MonoBehaviour
 {
     [Tooltip("遷移先のシーン名。空ならビルド順の次シーンへ")]
-    public string sceneName = "Trolley";
+    public string sceneName = "Trolley";// 遷移先シーン名
 
     [Tooltip("Time.timeScale==0 でも受け付けるか")]
     [SerializeField] private bool acceptWhenPaused = true;
@@ -29,27 +29,27 @@ public class SpaceKey_SwitchSceneAsync : MonoBehaviour
 
     private IEnumerator LoadAsyncByNameOrIndex()
     {
-        string targetName = sceneName;
+        string targetName = sceneName;// 遷移先シーン名
         int targetIndex = -1;
 
-        if (string.IsNullOrEmpty(targetName))
+        if (string.IsNullOrEmpty(targetName))// 次のシーンへ
         {
-            int nextIndex = SceneManager.GetActiveScene().buildIndex + 1;
-            if (nextIndex < SceneManager.sceneCountInBuildSettings)
+            int nextIndex = SceneManager.GetActiveScene().buildIndex + 1;// 次のシーン
+            if (nextIndex < SceneManager.sceneCountInBuildSettings)// シーン数内
             {
-                targetIndex = nextIndex;
+                targetIndex = nextIndex;// 次のシーンへ
             }
             else
             {
-                targetIndex = 0;
+                targetIndex = 0;// 最初のシーンへ戻る
             }
         }
 
         AsyncOperation op = (targetIndex >= 0)
             ? SceneManager.LoadSceneAsync(targetIndex)
-            : SceneManager.LoadSceneAsync(targetName);
+            : SceneManager.LoadSceneAsync(targetName);// シーン読み込み開始
 
-        op.allowSceneActivation = true;
+        op.allowSceneActivation = true;// シーンアクティベーション許可
 
         // ここでフェードアウトやローディングUIを制御できます
         while (!op.isDone)

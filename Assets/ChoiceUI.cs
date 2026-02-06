@@ -5,20 +5,66 @@ using TMPro;
 public class ChoiceUI : MonoBehaviour
 {
     [Header("UI参照")]
-    public TextMeshProUGUI questionText;
-    public TextMeshProUGUI choiceAText;
-    public TextMeshProUGUI choiceBText;
-    public Button decideButton;  // ← さっきのボタンを使う
+    [SerializeField] private TextMeshProUGUI questionText;
+    [SerializeField] private TextMeshProUGUI choiceAText;
+    [SerializeField] private TextMeshProUGUI choiceBText;
+    [SerializeField] private Button decideButton;
 
     private int selected = 0; // 0 = 未選択, 1 = A, 2 = B
 
-    void Start()
+
+
+
+    public enum Side { Left, Right }
+
+    public void SetLeftAnswer(string text) => choiceAText.text = text;
+    public void SetRightAnswer(string text) => choiceBText.text = text;
+
+    public void SetSideAnswer(Side side, string text)
     {
-        // ボタンが押された時の処理を登録
-        decideButton.onClick.AddListener(OnDecide);
+        if (side == Side.Left) SetLeftAnswer(text);
+        else SetRightAnswer(text);
     }
 
-    // 質問と選択肢を表示する
+    public void ClearLeft() => choiceAText.text = string.Empty;
+    public void ClearRight() => choiceBText.text = string.Empty;
+
+    public void ClearSide(Side side)
+    {
+        if (side == Side.Left) ClearLeft();
+        else ClearRight();
+    }
+
+    private void Awake()
+    {
+        // インスペクター未設定なら「自分の子」から限定的に取得
+        if (!questionText)
+            questionText = transform.Find("QuestionText/TQuestion")?.GetComponent<TextMeshProUGUI>();
+        if (!choiceAText)
+            choiceAText = transform.Find("QuestionText/TextA/TextAanswer")?.GetComponent<TextMeshProUGUI>();
+        if (!choiceBText)
+            choiceBText = transform.Find("QuestionText/TextB/TextBanswer")?.GetComponent<TextMeshProUGUI>();
+        if (!decideButton)
+            decideButton = transform.Find("DecideButton")?.GetComponent<Button>(); // ボタン名に合わせて
+
+        // 参照検証
+        if (!questionText || !choiceAText || !choiceBText || !decideButton)
+        {
+            Debug.LogError("[ChoiceUI] 参照が不足しています。ヒエラルキーのパス/名前を再確認してください。", this);
+        }
+
+        // ここで左右が別インスタンスか念のためチェック
+        if (choiceAText && choiceBText && choiceAText == choiceBText)
+        {
+            Debug.LogError("[ChoiceUI] choiceAText と choiceBText が同じオブジェクトを参照しています。割り当てを修正してください。", this);
+        }
+    }
+
+    private void Start()
+    {
+        decideButton.onClick.AddListener(OnDecide);// ボタンにイベント登録
+    }
+
     public void ShowQuestion(string question, string choiceA, string choiceB)
     {
         questionText.text = question;
@@ -29,39 +75,35 @@ public class ChoiceUI : MonoBehaviour
         Highlight();
     }
 
-    // Aを選択
     public void SelectA()
     {
         selected = 1;
         Highlight();
     }
 
-    // Bを選択
     public void SelectB()
     {
         selected = 2;
         Highlight();
     }
 
-    // どちらが選ばれているか色で強調表示
-    void Highlight()
+    private void Highlight()
     {
         choiceAText.color = (selected == 1) ? Color.yellow : Color.white;
         choiceBText.color = (selected == 2) ? Color.yellow : Color.white;
     }
 
-    // 決定ボタンが押された時
-    void OnDecide()
+    private void OnDecide()
     {
         if (selected == 1)
         {
             Debug.Log("Aを選んだ！");
-            // ここにAの処理
+            // Aの処理
         }
         else if (selected == 2)
         {
             Debug.Log("Bを選んだ！");
-            // ここにBの処理
+            // Bの処理
         }
         else
         {

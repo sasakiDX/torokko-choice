@@ -251,8 +251,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3792a27ac8556949b634c89b7f2e6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastQuestionId: -1
   score: 0
-  disableLoopAtScore: 500
+  moneyReward: 0
+  iqReward: 0
+  staminaReward: 0
+  senseReward: 0
+  disableLoopAtScore: 10000000
+  disableLoopAtMoney: 10000000
+  disableLoopAtIQ: 10000000
+  disableLoopAtStamina: 100
+  disableLoopAtSense: 10000000
   loopDisabled: 0
 --- !u!212 &742324810
 SpriteRenderer:

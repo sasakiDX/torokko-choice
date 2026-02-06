@@ -295,8 +295,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cbc594fba93aa4582a4df681e08ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTMP: {fileID: 110622306}
+  choiceUI: {fileID: 1325921178}
+  side: 0
   clearOnExit: 1
+  autoClearSeconds: 2
   format: 'ID: {id}
 
     {text}'
@@ -610,8 +612,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cbc594fba93aa4582a4df681e08ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTMP: {fileID: 1275454099}
+  choiceUI: {fileID: 1760675968}
+  side: 1
   clearOnExit: 1
+  autoClearSeconds: 2
   format: 'ID: {id}
 
     {text}'
@@ -4570,6 +4574,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1325921178 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3932275419667464306, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
+  m_PrefabInstance: {fileID: 8660752594216730015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d36f77c566a5928468e126b21897c834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1367443713
 GameObject:
   m_ObjectHideFlags: 0
@@ -6391,6 +6406,17 @@ MonoBehaviour:
   playerTag: Player
   clearOnExit: 1
   autoHideSeconds: 0
+--- !u!114 &1760675968 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8462511847787969443, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
+  m_PrefabInstance: {fileID: 8660752594216730015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d36f77c566a5928468e126b21897c834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1772852285
 GameObject:
   m_ObjectHideFlags: 0
@@ -8269,6 +8295,10 @@ PrefabInstance:
       propertyPath: choiceBText
       value: 
       objectReference: {fileID: 1275454099}
+    - target: {fileID: 3266852665714642391, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
+      propertyPath: questionText
+      value: 
+      objectReference: {fileID: 910567129}
     - target: {fileID: 3564055996019716826, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
       propertyPath: m_Name
       value: QuestionText
