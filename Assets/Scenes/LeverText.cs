@@ -5,7 +5,7 @@ using TMPro;
 public class LeverToChoiceUIBridge : MonoBehaviour
 {
     [Header("出力先（ChoiceUI を集中管理に）")]
-    [SerializeField] private ChoiceUI choiceUI;//
+    [SerializeField] private ChoiceUI choiceUI;// 
     // public TextMeshProUGUI targetTMP;だと違うレバーを押しても同じものを読んでしまう問題があった
     [SerializeField] private ChoiceUI.Side side = ChoiceUI.Side.Left; // このレバーが更新する側
 

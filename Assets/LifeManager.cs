@@ -5,7 +5,7 @@ using TMPro;
 /// RunData の各種値を Canvas 上の TextMeshProUGUI に表示するマネージャ（2D用）
 /// RunData は DontDestroyOnLoad を想定。軽量ポーリングで定期更新します。
 /// </summary>
-public class RunDataUIManagerTMP : MonoBehaviour
+public class RunDataLifeManagerTMP : MonoBehaviour
 {
     [Header("表示先 (Canvas上の TextMeshProUGUI)")]
     public TextMeshProUGUI targetTMP;
@@ -27,25 +27,21 @@ public class RunDataUIManagerTMP : MonoBehaviour
     [Header("RunDataが未生成の間に表示する文言（空なら非表示）")]
     public string fallbackWhenNoRunData = "(RunData not found)";
 
+    private void Awake()
+    {
+       
+    }
     private void OnEnable()
     {
-        CancelInvoke(nameof(Refresh));
-        InvokeRepeating(nameof(Refresh), 0f, updateInterval);
+        CancelInvoke(nameof(Refresh));// 定期更新開始
+        InvokeRepeating(nameof(Refresh), 0f, updateInterval);// 定期更新開始のインターバル
     }
 
     private void OnDisable()
     {
-        CancelInvoke(nameof(Refresh));
+        CancelInvoke(nameof(Refresh));// 定期更新停止
     }
-
-    private void Reset()
-    {
-        // アタッチ時に子から自動補完（任意）
-        if (targetTMP == null)
-            targetTMP = GetComponentInChildren<TextMeshProUGUI>();
-    }
-
-    private void Refresh()// 定期更新
+    private void Refresh()// 定期更新の内容
     {
         if (targetTMP == null) return;
 
@@ -56,6 +52,7 @@ public class RunDataUIManagerTMP : MonoBehaviour
             return;
         }
 
+        // 表示する内容
         targetTMP.text = format
             .Replace("{score}", rd.score.ToString())
             .Replace("{money}", rd.moneyReward.ToString())
