@@ -63,11 +63,10 @@ public class Question : MonoBehaviour
     {
         Debug.Log("出題");
 
-        currentData = data; // 修正: フィールド名を変更
+        currentData = data;
         onFinished += finishedCallback;
 
         Debug.Log($"Question 実行中: {data.questionText}");
-        Debug.Log("プレイヤーに問題を表示中... (スペースキーで回答)");
 
         for (int i = 0; i < choiceButtons.Length; i++)
         {
@@ -95,13 +94,13 @@ public class Question : MonoBehaviour
     private void EndQuestion(int selected)
     {
         Debug.Log($"EndQuestion() 呼び出し開始。選択肢番号: {selected}");
-        if (currentData == null) // 修正: フィールド名を変更
+        if (currentData == null)
         {
             Debug.LogError("currentEventData が設定されていません。");
             return;
         }
 
-        // ★ ここで「選択肢に応じたスコア」を加算
+        //選択肢に応じたスコアを加算
         int scoreDelta = 0;
         int moneyDelta = 0;
         int iqDelta = 0;
@@ -110,7 +109,7 @@ public class Question : MonoBehaviour
 
         if (selected == 1)
         {
-            scoreDelta = currentData.scoreWhenChoose1;   // Lever1
+            scoreDelta = currentData.scoreWhenChoose1;
             moneyDelta = currentData.moneyReward1;
             iqDelta = currentData.iqReward1;
             staminaDelta = currentData.staminaReward1;
@@ -119,14 +118,14 @@ public class Question : MonoBehaviour
         }
         else if (selected == 2)
         {
-            scoreDelta = currentData.scoreWhenChoose2;   // Lever2
+            scoreDelta = currentData.scoreWhenChoose2;
             moneyDelta = currentData.moneyReward2;
             iqDelta = currentData.iqReward2;
             staminaDelta= currentData.staminaReward2;
             senseDelta = currentData.senseReward2;
         }
 
-        // ★ 実スコア加算（RunData に累積 / 閾値到達で loopDisabled を自動ON）
+        //スコア加算しRunData到達でloopDisabled自動ON
         if (RunData.Instance != null)
         {
             RunData.Instance.AddScore(scoreDelta);
@@ -138,7 +137,7 @@ public class Question : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("RunData.Instance が見つかりません。Title シーンに RunData を配置してください。");
+            Debug.LogWarning("RunData.Instance が見つかりません。");
         }
 
         if (GameManager.Instance?.ChangePoint != null)
@@ -155,7 +154,7 @@ public class Question : MonoBehaviour
         gameObject.SetActive(false);
         Debug.Log("【Question】コールバックを実行します（TrolleyChoiceへ）");
 
-        // ★ 実際に選んだ index をメインへ渡す（Choice ではなく selected）
+        //選んだindexをメインへ渡す
         onFinished?.Invoke(selected);
 
         Debug.Log("【Question】onFinished.Invoke() 完了");

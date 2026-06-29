@@ -155,14 +155,14 @@ public class TrolleyChoice : MonoBehaviour
 
                 GameManager.Instance.ChangePoint = other.gameObject;
 
-                //CHANGED: 毎回、その Change レールから QuestionData を取り直す
+                //ChangeレールからQuestionDataを取り直す
                 if (questionController == null)
                 {
                     Debug.LogError("questionController が設定されていません");
                     break;
                 }
 
-                // （任意）二重出題ガード
+                //二重出題ガード
                 if (asking)
                 {
                     Debug.LogWarning("StartQuestion を二重に呼ぶのを抑止しました（asking==true）");
@@ -170,9 +170,7 @@ public class TrolleyChoice : MonoBehaviour
                 }
                 asking = true; // 出題開始
 
-                // 1) Change に付与された QuestionAssigner を取得
-
-                //ランダムの場合コメント
+                //Changeに付与されたQuestionAssignerを取得
 
 
                 var assigner = other.GetComponent<QuestionAssigner>();
@@ -183,9 +181,7 @@ public class TrolleyChoice : MonoBehaviour
                     break;
                 }
 
-                //
-
-                // 2) QuestionManager から QuestionData を取得
+                //QuestionManagerからQuestionDataを取得
 
 
                 //ランダムの場合コメント
@@ -206,65 +202,31 @@ public class TrolleyChoice : MonoBehaviour
                 }
 
 
-                //
-
-
-
-                /*                //ランダム選択の場合
-                var qm = QuestionManager.Instance;
-                if (qm == null || qm.questions == null || qm.questions.Count == 0)
-                {
-                    Debug.LogError("QuestionManager に問題がありません");
-
-                    asking = false;
-
-                    break;
-
-                }
-
-                int r = UnityEngine.Random.Range(0, qm.questions.Count); // 0..Count-1
-                var data = qm.questions[r];
-                if (data == null)
-                {
-                    Debug.LogError("ランダム選択した QuestionData が null です");
-                    asking = false;
-                    break;
-                }
-
-                */
-
-
-
-
-
-
-
-
                 Debug.Log($"[StartQuestion] id={data.id}, text={data.questionText}");
 
-                // 3) 取得した data をそのまま渡して出題
+                //取得したdataをそのまま渡して出題
                 questionController.StartQuestion(data, (choiceResult) =>
                 {
-                    Choice = choiceResult; // ← 既存仕様の 1/2 を維持
+                    Choice = choiceResult;
                     Debug.Log("TrolleyChoice で受け取った Choice: " + Choice);
                     Debug.Log("Question終了後、Moveに戻る");
 
-                    // 速度など復帰
+                    //速度復帰
                     isChange = 0;
                     RidSpeed = 10f;
 
                     if (Choice == 1)
                     {
-                        state = Scene.Move; // 下のルート（既存仕様）
+                        state = Scene.Move;
                     }
 
-                    // 出題完了
+                    //出題完了
                     asking = false;
                 });
                 break;
 
             case "slope":
-                if (Choice == 2) // 既存仕様（2 で上ルート）
+                if (Choice == 2)
                 {
                     slopeAngle = other.transform.eulerAngles.z;
                     state = Scene.UPRail;
@@ -276,7 +238,7 @@ public class TrolleyChoice : MonoBehaviour
                 slopeEndPos = new Vector2(115f, -88.15f);//ループ後坂終わり
 
                 //switch文に直す 仮置き
-                // ここでスコアによる判定を挟む（閾値以上なら再読み込みしない）
+                // ここでスコアによる判定を挟む
                 if 
                 (
                     RunData.Instance != null &&
@@ -297,7 +259,7 @@ public class TrolleyChoice : MonoBehaviour
 
                 {
 
-                    Debug.Log("[Loop] スコア閾値到達のため、シーン再読み込みをスキップします。");
+                    Debug.Log("[Loop] スコア到達のため、シーン再読み込みをスキップします。");
 
                     break; // ← 再読み込みせず抜ける（以降の処理は行わない）
                 }

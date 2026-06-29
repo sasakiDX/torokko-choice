@@ -741,6 +741,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.000000029802
       objectReference: {fileID: 0}
+    - target: {fileID: 3537338827257619687, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3698680728767836674, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: m_SizeDelta.x
       value: 3.7429
@@ -797,6 +801,10 @@ PrefabInstance:
       propertyPath: timerButton
       value: 
       objectReference: {fileID: 656641177}
+    - target: {fileID: 5502243876190695874, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5666393860798265307, guid: 0af197396ca0f27459b7fcf4e8074f0f, type: 3}
       propertyPath: choiceAText
       value: 

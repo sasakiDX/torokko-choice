@@ -7826,6 +7826,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 7219082850375068568}
     m_Modifications:
     - target: {fileID: 1072898284281356488, guid: 9715bfd6ec4af7746b6d8490500071e3, type: 3}
+      propertyPath: m_text
+      value: 'age
+
+        student
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072898284281356488, guid: 9715bfd6ec4af7746b6d8490500071e3, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8303,6 +8311,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuestionText
       objectReference: {fileID: 0}
+    - target: {fileID: 3777052505795987051, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3932275419667464306, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
       propertyPath: choiceAText
       value: 
@@ -8343,13 +8355,17 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 5270911902031090510, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6429343301229251352, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
       propertyPath: m_Name
       value: TQuestion
       objectReference: {fileID: 0}
     - target: {fileID: 6571560052354259033, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
       propertyPath: m_text
-      value: Question
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6571560052354259033, guid: 7d1e55f0063f1b64d984f5f0afa36b63, type: 3}
       propertyPath: m_fontAsset
