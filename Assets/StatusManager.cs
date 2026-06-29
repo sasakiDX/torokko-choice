@@ -45,7 +45,7 @@ public class RunDataUIManagerTMP : MonoBehaviour
             targetTMP = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    private void Refresh()// 定期更新
+    private void Refresh()
     {
         if (targetTMP == null) return;
 

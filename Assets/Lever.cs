@@ -31,10 +31,8 @@ public class Lever : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) // 左クリック
         {
-
-            Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);// マウス位置をワールド座標に変換
+            Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);//クリック対象を取得
-
 
             if (hit.collider != null && hit.collider.CompareTag("Lever"))//レバーがクリックされた場合
             {

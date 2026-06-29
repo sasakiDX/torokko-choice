@@ -19,7 +19,7 @@ MonoBehaviour:
   scoreWhenChoose1: 150
   moneyReward1: 1000
   iqReward1: 20
-  staminaReward1: 50
+  staminaReward1: 25
   senseReward1: 15
   scoreWhenChoose2: 0
   moneyReward2: 0
